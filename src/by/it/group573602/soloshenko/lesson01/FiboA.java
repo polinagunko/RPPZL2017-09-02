@@ -29,7 +29,11 @@ public class FiboA {
     private int calc(int n) {
         //здесь простейший вариант, в котором код совпадает с мат.определением чисел Фибоначчи
         //время O(2^n)
-        return 0;
+
+        if(n<=1) return n;
+        else return (calc(n-1))+calc(n-2);
+        //return 0;
+
     }
 
 
@@ -45,4 +49,3 @@ public class FiboA {
 
 
 }
-
