@@ -46,7 +46,7 @@ public class FiboA {
         if (n <= 1)
             return BigInteger.valueOf(n);
         else
-            return slowA(n-1).add(slowA(n-2));
+            return slowA(n - 1).add(slowA(n - 2));
     }
 
 
