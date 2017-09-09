@@ -1,7 +1,5 @@
-package by.it.group573602.kondrashevich;
+package by.it.group573602.kondrashevich.lesson01;
 
-import by.it.a_khmelev.lesson01.FiboA;
-import by.it.a_khmelev.lesson01.FiboB;
 import org.junit.Test;
 
 import java.math.BigInteger;
@@ -20,7 +18,7 @@ public class FiboTest {
 
     @Test(timeout = 2000)
     public void slowA() throws Exception {
-        by.it.a_khmelev.lesson01.FiboA fibo=new FiboA();
+        FiboA fibo=new FiboA();
         BigInteger res=fibo.slowA(33);
         boolean ok=res.toString().equals("3524578");
         assertTrue("slowA failed", ok);
