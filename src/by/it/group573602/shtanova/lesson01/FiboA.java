@@ -1,6 +1,6 @@
-package by.it.group573602.shtanova.lesson01;
+package by.it.group573602.shtanova.lesson01; // исходный код этого класса должен храниться в каталоге by.it.group573602.shtanova.lesson01
 
-import java.math.BigInteger;
+import java.math.BigInteger;// исп класса BigInteger (для работы с высокоточной арифмет)
 
 /*
  * Вам необходимо выполнить рекурсивный способ вычисления чисел Фибоначчи
@@ -8,14 +8,14 @@ import java.math.BigInteger;
 
 public class FiboA {
 
-    private long startTime = System.currentTimeMillis();
+    private long startTime = System.currentTimeMillis(); // таймер, показ время работы программы
 
     private long time() {
         return System.currentTimeMillis() - startTime;
-    }
+    } //Выведет в милисекундах
 
     public static void main(String[] args) {
-        FiboA fibo = new FiboA();
+        FiboA fibo = new FiboA();//объявление объекта класса FiboA
         int n = 33;
         System.out.printf("calc(%d)=%d \n\t time=%d \n\n", n, fibo.calc(n), fibo.time());
 
@@ -27,20 +27,24 @@ public class FiboA {
 
 
     private int calc(int n) {
-        //здесь простейший вариант, в котором код совпадает с мат.определением чисел Фибоначчи
-        //время O(2^n)
-        return 0;
+        if (n <=1){
+            return n;
+        }
+         else{
+            return calc(n-1)+calc(n-2);
+        }
     }
 
 
     BigInteger slowA(Integer n) {
-        //рекурсия
-        //здесь нужно реализовать вариант без ограничения на размер числа,
-        //в котором код совпадает с мат.определением чисел Фибоначчи
-        //время O(2^n)
 
-        return BigInteger.ZERO;
+       if (n==0)
+            return BigInteger.ZERO;
+        if (n==1)
+            return BigInteger.ONE;
+       else return (slowA(n-1).add(slowA(n-2)));
     }
+
 
 
 
