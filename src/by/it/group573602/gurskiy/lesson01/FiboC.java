@@ -6,6 +6,8 @@ package by.it.group573602.gurskiy.lesson01;
  * время расчета должно быть не более 2 секунд
  */
 
+import java.util.ArrayList;
+
 public class FiboC {
 
     private long startTime = System.currentTimeMillis();
@@ -16,8 +18,8 @@ public class FiboC {
 
     public static void main(String[] args) {
         FiboC fibo = new FiboC();
-        int n = 10;
-        int m = 2;
+        int n = 8;
+        int m = 3;
         System.out.printf("fasterC(%d)=%d \n\t time=%d \n\n", n, fibo.fasterC(n, m), fibo.time());
     }
 
@@ -25,7 +27,19 @@ public class FiboC {
         //решение практически невозможно найти интуитивно
         //вам потребуется дополнительный поиск информации
         //см. период Пизано
-        return 0L;
+        ArrayList<Long> numbersOfFibo = new ArrayList();
+            numbersOfFibo.add((long)0);
+            numbersOfFibo.add((long)1);
+            for(int i = 2; i < m * 6; i++){
+                numbersOfFibo.add((numbersOfFibo.get(i - 1) + numbersOfFibo.get(i - 2)) % m);
+                if(numbersOfFibo.get(i) == 1 && numbersOfFibo.get(i-1) == 0){
+                    break;
+                }
+        }
+        long periodOfPizano = numbersOfFibo.size() - 2; // находим период Пизано
+        int val = (int)(n % periodOfPizano);
+        return numbersOfFibo.get(val);
+
     }
 
 
