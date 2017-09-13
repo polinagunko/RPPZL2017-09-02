@@ -1,5 +1,7 @@
 package by.it.group573602.soloshenko.lesson01;
 
+
+import java.util.Vector;
 /*
  * Даны целые числа 1<=n<=1E18 и 2<=m<=1E5,
  * необходимо найти остаток от деления n-го числа Фибоначчи на m.
@@ -25,8 +27,21 @@ public class FiboC {
         //решение практически невозможно найти интуитивно
         //вам потребуется дополнительный поиск информации
         //см. период Пизано
-        return 0L;
-    }
+
+       long mas[];
+       mas=new long[6*m];
+       mas[0] = 0;
+       mas[1]=1;
+       long t=1;
+       for  ( int j = 2; j < n; ++j){
+           mas[j]=(mas[j-1]+mas[j-2])%m;
+           ++t;
+           if(mas[j] == 1 && (mas[j-1]==0)) break;
+       }
+return mas[(int)(n%t)];
+        }
+
+
 
 
 }
