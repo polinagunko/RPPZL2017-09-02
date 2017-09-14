@@ -2,7 +2,7 @@
 
 ### Начало работы:
 
-<b>Посмотрите видео: <a target=_blank href=https://youtu.be/SMXSZV3MOVg>https://youtu.be/SMXSZV3MOV</a></b>
+<b>Посмотрите видео: <a target=_blank href=http://youtu.be/SMXSZV3MOVg>https://youtu.be/SMXSZV3MOV</a></b>
 
 1. Инициализация. Нажмите Fork на странице https://github.com/Khmelov/RPPZL2017-09-02/
 2. У вас в аккаунте fork появится тут  https://github.com/ваш_логин/RPPZL2017-09-02
