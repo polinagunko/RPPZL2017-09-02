@@ -2,6 +2,8 @@
 
 ### Начало работы:
 
+<b>Посмотрите видео: https://youtu.be/SMXSZV3MOV</b>
+
 1. Инициализация. Нажмите Fork на странице https://github.com/Khmelov/RPPZL2017-09-02/
 2. У вас в аккаунте fork появится тут  https://github.com/ваш_логин/RPPZL2017-09-02
 3. Выберите в IDEA VCS -> Checkout version control -> GitHub и затем:
