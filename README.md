@@ -2,7 +2,7 @@
 
 ### Начало работы:
 
-<b>Посмотрите видео: <b><a href="https://youtu.be/mIs-X63CH78" target="_blanc">https://youtu.be/mIs-X63CH78</a></b>
+<b>Посмотрите видео: <a href="https://youtu.be/mIs-X63CH78" target="_blank">https://youtu.be/mIs-X63CH78</a></b>
 
 1. Инициализация. Нажмите Fork на странице https://github.com/Khmelov/RPPZL2017-09-02/
 2. У вас в аккаунте fork появится тут  https://github.com/ваш_логин/RPPZL2017-09-02
