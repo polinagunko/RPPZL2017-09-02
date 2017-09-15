@@ -7,7 +7,7 @@ import java.util.Vector;
  * необходимо найти остаток от деления n-го числа Фибоначчи на m.
  * время расчета должно быть не более 2 секунд
  */
-
+import java.util.ArrayList;
 public class FiboC {
 
     private long startTime = System.currentTimeMillis();
@@ -27,18 +27,21 @@ public class FiboC {
         //решение практически невозможно найти интуитивно
         //вам потребуется дополнительный поиск информации
         //см. период Пизано
+        ArrayList<Long> list=new ArrayList();
+        list.add((long)0);
+        list.add((long)1);
+        for(int i=2;i<6*m;i++){
+            list.add((list.get(i-1)+list.get(i-2))%m);
+            if(1==list.get(i) && 0 == list.get(i-1)){
+                break;
+            }
+        }
+        long p;
+        p=list.size()-2;
+        int res;
+        res=(int)(n%p);
+        return list.get(res);
 
-       long mas[];
-       mas=new long[6*m];
-       mas[0] = 0;
-       mas[1]=1;
-       long t=1;
-       for  ( int j = 2; j < n; ++j){
-           mas[j]=(mas[j-1]+mas[j-2])%m;
-           ++t;
-           if(mas[j] == 1 && (mas[j-1]==0)) break;
-       }
-return mas[(int)(n%t)];
         }
 
 
