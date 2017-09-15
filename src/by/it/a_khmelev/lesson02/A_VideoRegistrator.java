@@ -2,6 +2,14 @@ package by.it.a_khmelev.lesson02;
 
 import java.util.ArrayList;
 import java.util.List;
+/*
+даны события events
+реализуйте метод calcStartTimes, так, чтобы число включений регистратора на
+заданный период времени (1) было минимальным, а все события events
+были зарегистрированы.
+
+Алгоритм жадный. Для реализации обдумайте надежный шаг.
+*/
 
 public class A_VideoRegistrator {
 
@@ -12,7 +20,7 @@ public class A_VideoRegistrator {
         System.out.println(starts);                            //покажем моменты старта
     }
     //модификаторы доступа опущены для возможности тестирования
-    public List<Double> calcStartTimes(double[] events, double workDuration){
+    List<Double> calcStartTimes(double[] events, double workDuration){
         //events - события которые нужно зарегистрировать
         //timeWorkDuration время работы видеокамеры после старта
         List<Double> result;

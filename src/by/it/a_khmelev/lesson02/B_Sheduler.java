@@ -2,6 +2,14 @@ package by.it.a_khmelev.lesson02;
 
 import java.util.ArrayList;
 import java.util.List;
+/*
+даны интервальные события events
+реализуйте метод calcStartTimes, так, чтобы число принятых к выполнению
+непересекающихся событий было максимально.
+
+Алгоритм жадный. Для реализации обдумайте надежный шаг.
+
+*/
 
 public class B_Sheduler {
     //событие у аудитории(два поля: начало и конец)
