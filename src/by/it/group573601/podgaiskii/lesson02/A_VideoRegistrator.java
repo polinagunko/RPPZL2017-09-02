@@ -24,19 +24,10 @@ public class A_VideoRegistrator {
         while(i != events.length - 1) {
             result.add(events[i]);
             Double start = events[i];
-            Double finish = events[i] + workDuration;
+            Double finish = start + workDuration;
             while (events[i] < finish)
                 i++;
         }
-                                                //пока есть незарегистрированные события
-                                                //получим одно событие по левому краю
-                                                //и запомним время старта видеокамеры
-                                                //вычислим момент окончания работы видеокамеры
-                                                //и теперь пропустим все покрываемые события
-                                                //за время до конца работы, увеличивая индекс
-
-
-
-        return result;                        //вернем итог
+        return result;
     }
 }

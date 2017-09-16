@@ -2,11 +2,12 @@ package by.it.group573601.podgaiskii.lesson02;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class B_Sheduler {
     //событие у аудитории(два поля: начало и конец)
-    static class Event implements Comparable<Event> {
+    static class Event {
         int start;
         int stop;
 
@@ -16,11 +17,18 @@ public class B_Sheduler {
         }
 
         @Override
-        public int compareTo
-        @Override
         public String toString() {
             return "("+ start +":" + stop + ")";
         }
+    }
+
+    static class EventComparator implements Comparator<Event> {
+
+        @Override
+        public int compare(Event obj1, Event obj2) {
+            return Integer.compare(obj1.stop, obj2.stop);
+        }
+
     }
 
     public static void main(String[] args) {
@@ -43,14 +51,21 @@ public class B_Sheduler {
         //оптимизация проводится по наибольшему числу непересекающихся событий.
         //начало и конец событий могут совпадать.
         List<Event> result;
-        result = new ArrayList<>();
+        result = new ArrayList<Event>();
         //ваше решение.
-        Arrays.sort(result);
-
-
-
-
-
+        Arrays.sort(events, new EventComparator());
+        int i = 0;
+        while (events[i].start < from)
+            i++;
+        while (i < events.length - 1) {
+            result.add(events[i]);
+            int finish = events[i++].stop;
+            while (events[i].start < finish && events[i].stop < to) {
+                i++;
+                if (events[i].stop == to && events[i].start < finish)
+                    return result;
+            }
+        }
         return result;                        //вернем итог
     }
 }
