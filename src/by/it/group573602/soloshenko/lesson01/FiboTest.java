@@ -6,6 +6,8 @@ import java.math.BigInteger;
 
 import static org.junit.Assert.assertTrue;
 
+
+
 public class FiboTest {
     /*
     для прохождения тестов создайте JUnit-конфигурацию на свой пакет:
