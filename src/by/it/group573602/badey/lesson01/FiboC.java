@@ -31,16 +31,14 @@ public class FiboC {
         ArrayList<Long> fibolist=new ArrayList<>();
         fibolist.add(0L);
         fibolist.add(1L);
-        long t=fibolist.size()-2;
+        long t=0L;
         for(int j=2;j<6*m;++j){
             fibolist.add((fibolist.get(j-1)+fibolist.get(j-2))%m);
             t++;
             if(fibolist.get(j)==1L && fibolist.get(j-1)==0L)
                 break;
         }
-        int res;
-        res=(int)(n%t);
-        return fibolist.get(res);
+        return fibolist.get((int)(n%t));
     }
 
 
