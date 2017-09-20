@@ -1,4 +1,4 @@
-package by.it.group573602.zadorozhnuk.lesson01;
+package by.it.a_khmelev.lesson01;
 
 import org.junit.Test;
 
@@ -10,9 +10,9 @@ public class FiboTest {
     /*
     для прохождения тестов создайте JUnit-конфигурацию на свой пакет:
     Поля:
-    Name:               Test a_khmelov (тут ваша фамилия)
+    Name:               Test a_khmelev (тут ваша фамилия)
     Test kind:          All in package
-    Package:            by.it.группа.a_khmelov (тут ваша фамилия)
+    Package:            by.it.группа.a_khmelev (тут ваша фамилия)
     Search for test:    In whole project
     */
 
