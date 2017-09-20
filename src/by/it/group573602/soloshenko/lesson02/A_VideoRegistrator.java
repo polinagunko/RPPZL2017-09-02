@@ -28,8 +28,6 @@ public class A_VideoRegistrator {
              i=i+1;
          }
         }
-
-
         return result;
     }
 }
