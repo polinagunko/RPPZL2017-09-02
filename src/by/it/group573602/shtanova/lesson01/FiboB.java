@@ -29,9 +29,9 @@ public class FiboB {
         BigInteger[] a = new BigInteger[n];
         BigInteger a1=  new BigInteger("99999999999999999999");
         int i;
-        if (n<=2)
+        if (n<=2) {
             return BigInteger.ONE;
-        else {
+        } else {
             a[0]=BigInteger.ONE;
             a[1]=BigInteger.ONE;
             for (i = 2; i < n; i++) {
