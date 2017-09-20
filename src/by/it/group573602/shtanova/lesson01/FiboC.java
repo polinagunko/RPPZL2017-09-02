@@ -35,7 +35,5 @@ public class FiboC {
         int val = (int) (n % period);
          return fl.get(val);
     }
-
-
 }
 
