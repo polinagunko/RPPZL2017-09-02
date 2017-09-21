@@ -1,8 +1,10 @@
 package by.it.group573602.soloshenko.lesson02;
 
+
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Arrays;
+import java.util.Comparator;
 public class B_Sheduler {
     //событие у аудитории(два поля: начало и конец)
     static class Event {
@@ -18,8 +20,16 @@ public class B_Sheduler {
         public String toString() {
             return "("+ start +":" + stop + ")";
         }
+
     }
 
+class ComparatorEv implements Comparator<Event>{
+    @Override
+    public int compare(Event ev_1,Event ev_2){
+
+        return Integer.compare(ev_1.stop,ev_2.stop);
+    }
+}
     public static void main(String[] args) {
         B_Sheduler instance = new B_Sheduler();
         Event[] events = {  new Event(0, 3),  new Event(0, 1), new Event(1, 2), new Event(3, 5),
@@ -43,10 +53,18 @@ public class B_Sheduler {
         result = new ArrayList<>();
         //ваше решение.
 
-
-
-
-
+        Arrays.sort(events,new ComparatorEv());
+        int i=0; int k;
+        while(i<events.length-1)    {
+            result.add(events[i]);
+            k=events[i].stop;
+            while(events[i].start<k){
+                i=i+1;
+                if(events[i].stop==to) {
+                   return result;
+                }
+            }
+        }
 
         return result;                        //вернем итог
     }
