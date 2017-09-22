@@ -14,16 +14,19 @@ package by.it.group573601.markovski.lesson01.lesson02;
  */
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class C_GreedyKnapsack {
     private class Item implements Comparable<Item> {
         int cost;
         int weight;
+        int unitcost;
 
         Item(int cost, int weight) {
             this.cost = cost;
             this.weight = weight;
+            this.unitcost = cost/weight;
         }
 
         @Override
@@ -36,19 +39,16 @@ public class C_GreedyKnapsack {
 
         @Override
         public int compareTo(Item o) {
-            //тут может быть ваш компаратор
-
-
-            return 0;
+            return Integer.compare(o.unitcost,this.unitcost);
         }
     }
 
     double calc(File source) throws FileNotFoundException {
         Scanner input = new Scanner(source);
-        int n = input.nextInt();      //сколько предметов в файле
-        int W = input.nextInt();      //какой вес у рюкзака
-        Item[] items = new Item[n];   //получим список предметов
-        for (int i = 0; i < n; i++) { //создавая каждый конструктором
+        int n = input.nextInt();      //сколько предметов в файле1
+        int W = input.nextInt();      //какой вес у рюкзака1
+        Item[] items = new Item[n];   //получим список предметов1
+        for (int i = 0; i < n; i++) { //создавая каждый конструктором1
             items[i] = new Item(input.nextInt(), input.nextInt());
         }
         //покажем предметы
@@ -57,21 +57,29 @@ public class C_GreedyKnapsack {
         }
         System.out.printf("Всего предметов: %d. Рюкзак вмещает %d кг.\n",n,W);
 
-        //тут необходимо реализовать решение задачи
-        //итогом является максимально воможная стоимость вещей в рюкзаке
-        //вещи можно резать на кусочки (непрерывный рюкзак)
-        double result = 0;
-        //тут реализуйте алгоритм сбора рюкзака
-        //будет особенно хорошо, если с собственной сортировкой
-        //кроме того, можете описать свой компаратор в классе Item
-        //ваше решение.
+        Arrays.sort(items);
+
+        double stealed = 0;
+        int freeWeight = W;
+
+        for (Item item:items){
+           if (freeWeight == 0){
+               break;
+           } else if (freeWeight >= item.weight){
+               stealed += item.cost;
+               freeWeight -= item.weight;
+           } else if (freeWeight < item.weight){
+               stealed += freeWeight * item.unitcost;
+               freeWeight -= freeWeight;
+           }
+        }
 
 
 
 
 
-        System.out.printf("Удалось собрать рюкзак на сумму %f\n",result);
-        return result;
+        System.out.printf("Удалось собрать рюкзак на сумму %f\n",stealed);
+        return stealed;
     }
 
     public static void main(String[] args) throws FileNotFoundException {

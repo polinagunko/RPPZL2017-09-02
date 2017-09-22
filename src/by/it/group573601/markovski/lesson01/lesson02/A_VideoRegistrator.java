@@ -31,7 +31,7 @@ public class A_VideoRegistrator {
                                               //hint: сортировка Arrays.sort обеспечит скорость алгоритма
                                               //C*(n log n) + C1*n = O(n log n)
         double camtime = 0;
-        while (i != 11) {
+        while (i != events.length) {
             if (camtime >= events[i])
                 i++;
             else {
