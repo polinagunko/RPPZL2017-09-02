@@ -53,11 +53,11 @@ public class C_GreedyKnapsack {
         double result = 0;
         for(int i=0;i<items.length;i++){
             if(items[i].weight <= W){
-                result+=(double)items[i].cost;
-                W-=items[i].weight;
+                result += (double)items[i].cost;
+                W -= items[i].weight;
             }
             else if(W!=0){
-                result+=(items[i].cost/items[i].weight)*W;
+                result += (items[i].cost/items[i].weight)*W;
                 W=0;
             }
             else break;
