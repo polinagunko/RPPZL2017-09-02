@@ -32,10 +32,9 @@ public class FiboC {
             period++;
             if(mas[i]==1&&mas[i-1]==0) {break;}
             i++;
-
         }while(i<n);
-        int val=(int)(n%period);
-        return mas[val];
+        int nomer=(int)(n%period);
+        return mas[nomer];
     }
 
 
