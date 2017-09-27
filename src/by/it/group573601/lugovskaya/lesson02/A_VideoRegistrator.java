@@ -1,8 +1,8 @@
 package by.it.group573601.lugovskaya.lesson02;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Arrays;
+import java.util.List;
 /*
 даны события events
 реализуйте метод calcStartTimes, так, чтобы число включений регистратора на
@@ -11,7 +11,6 @@ import java.util.Arrays;
 
 Алгоритм жадный. Для реализации обдумайте надежный шаг.
 */
-
 public class A_VideoRegistrator {
 
     public static void main(String[] args) {
