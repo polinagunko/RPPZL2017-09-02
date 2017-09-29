@@ -19,7 +19,7 @@ public class FiboB {
 
         //вычисление чисел простым быстрым методом
         FiboB fibo = new FiboB();
-        int n = 55555;
+        int n = 33;
         System.out.printf("fastB(%d)=%d \n\t time=%d \n\n", n, fibo.fastB(n), fibo.time());
     }
 
@@ -31,7 +31,6 @@ public class FiboB {
 
         for (int i=2;i<=n; i++){
             F[i]=F[i-1].add(F[i-2]);
-
         }
         return F[n];
         //здесь нужно реализовать вариант с временем O(n) и памятью O(n)

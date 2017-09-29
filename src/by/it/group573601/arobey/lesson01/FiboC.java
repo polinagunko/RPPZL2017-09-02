@@ -24,7 +24,7 @@ public class FiboC {
     }
 
     long fasterC(long n, int m) {
-        ArrayList<Long> s = new ArrayList();
+        ArrayList <Long> s = new ArrayList();
         s.add((long)0);
         s.add((long)1);
         for(int i = 2; i < m * 6; i++){
@@ -34,13 +34,10 @@ public class FiboC {
             }
         }
 
-
         long period = s.size() - 2; // находим период Пизано
         int val = (int)(n % period);
         return s.get(val);
        // return s;
-
-
         //решение практически невозможно найти интуитивно
         //вам потребуется дополнительный поиск информации
         //см. период Пизано

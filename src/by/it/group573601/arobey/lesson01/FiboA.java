@@ -47,7 +47,5 @@ public class FiboA {
         //время O(2^n)
     }
 
-
-
 }
 
