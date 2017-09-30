@@ -61,7 +61,6 @@ public class B_Sheduler {
         //ваше решение.
 
 
-
         Arrays.sort(events, new Comp());
 
         result.add(events[0]);

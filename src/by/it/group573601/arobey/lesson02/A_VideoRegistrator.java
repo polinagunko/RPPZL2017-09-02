@@ -34,7 +34,7 @@ public class A_VideoRegistrator {
         double time = 0;
         while (i != events.length) {
 
-            if (time < events[i ]){
+            if (time < events[i]){
                 result.add(events[i]);
                 time = events[i] + workDuration;
                 i++;
