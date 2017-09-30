@@ -1,4 +1,4 @@
-package by.it.group573601.markovski.lesson01.lesson02;
+package by.it.group573601.markovski.lesson2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
