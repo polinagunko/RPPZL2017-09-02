@@ -1,4 +1,4 @@
-package by.it.group573601.markovski.lesson01.lesson02;
+package by.it.group573601.markovski.lesson2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,7 +53,7 @@ public class B_Sheduler {
     List<Event> calcStartTimes(Event[] events, int from, int to) {
 
         List<Event> result;
-        result = new ArrayList<Event>();
+        result = new ArrayList<>();
 
         Arrays.sort(events, new EventComparator());
 
