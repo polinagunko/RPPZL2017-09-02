@@ -123,9 +123,27 @@ public class A_Huffman {
         //1. переберем все символы по очереди и рассчитаем их частоту в Map count
         //для каждого символа добавим 1 если его в карте еще нет или инкремент если есть.
 
+        for (int i = 0; i < s.length(); i++) {
+            if (count.get(s.charAt(i)) != null) {
+                count.put(s.charAt(i), count.get(s.charAt(i)) + 1);
+            } else {
+                count.put(s.charAt(i), 1);
+            }
+
+        }
+
         //2. перенесем все символы в приоритетную очередь в виде листьев
         PriorityQueue<Node> priorityQueue = new PriorityQueue<>();
+        for (Character key : count.keySet()) {
+            priorityQueue.add(new LeafNode(count.get(key), key));
+        }
 
+        Node left, right;
+        while (priorityQueue.size() != 1) {
+            left = priorityQueue.poll();
+            right = priorityQueue.poll();
+            priorityQueue.add(new InternalNode(left, right));
+        }
         //3. вынимая по два узла из очереди (для сборки родителя)
         //и возвращая этого родителя обратно в очередь
         //построим дерево кодирования Хаффмана.
@@ -136,7 +154,11 @@ public class A_Huffman {
         StringBuilder sb = new StringBuilder();
         //.....
 
+        priorityQueue.peek().fillCodes(sb.toString());
+        for (char symbol : s.toCharArray())
+            sb.append(codes.get(symbol));
         return sb.toString();
+
         //01001100100111
         //01001100100111
     }
@@ -150,6 +172,7 @@ public class A_Huffman {
         long startTime = System.currentTimeMillis();
         String result = instance.encode(f);
         long finishTime = System.currentTimeMillis();
+        System.out.println("fdsfsdfsd");
         System.out.printf("%d %d\n", codes.size(), result.length());
         for (Map.Entry<Character, String> entry : codes.entrySet()) {
             System.out.printf("%s: %s\n", entry.getKey(), entry.getValue());
