@@ -65,12 +65,12 @@ public class B_Huffman {
 
         for (int i = 0; i < length; i++) {
             int size = i;
-            String code = maincode.substring(i, i + 1);
-            while (!dataOfMap.containsKey(code)) {
+            String partOfCode = maincode.substring(i, i + 1);
+            while (!dataOfMap.containsKey(partOfCode)) {
                 i++;
-                code = maincode.substring(size, i + 1);
+                partOfCode = maincode.substring(size, i + 1);
             }
-            result.append(dataOfMap.get(code));
+            result.append(dataOfMap.get(partOfCode));
         }
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! КОНЕЦ ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
