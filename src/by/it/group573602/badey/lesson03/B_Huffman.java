@@ -2,7 +2,6 @@ package by.it.group573602.badey.lesson03;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
