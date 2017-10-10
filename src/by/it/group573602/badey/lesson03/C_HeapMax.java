@@ -42,7 +42,7 @@ public class C_HeapMax {
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! НАЧАЛО ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
         //тут запишите ваше решение.
         //Будет мало? Ну тогда можете его собрать как Generic и/или использовать в варианте B
-        private List<Long> heap = new ArrayList<>();
+        private List<Long> heap = new ArrayList<>()
 
         int siftDown(int i) { //просеивание вверх
             while(2*i+1 < heap.size()){
