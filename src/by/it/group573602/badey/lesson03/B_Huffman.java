@@ -47,7 +47,7 @@ public class B_Huffman {
     String decode(File file) throws FileNotFoundException {
         StringBuilder result=new StringBuilder();
         //прочитаем строку для кодирования из тестового файла
-        Scanner scanner = new Scanner(file);
+        Scanner scanner = new Scanner(file).useDelimiter("[\\W]");
         Integer count = scanner.nextInt();
         Integer length = scanner.nextInt();
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! НАЧАЛО ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
@@ -65,7 +65,7 @@ public class B_Huffman {
         StringBuilder code=new StringBuilder();
         for(int i=0; i<length; i++){
             code.append(line.charAt(i));
-            if(line.charAt(i)=='0' || line.length()==3){
+            if(line.charAt(i)=='0' || code.length()==3){
                 result.append(codesMap.get(code.toString()));
                 code.setLength(0);
             }
