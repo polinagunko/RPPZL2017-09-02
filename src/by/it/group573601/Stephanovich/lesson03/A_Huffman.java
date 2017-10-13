@@ -123,10 +123,11 @@ public class A_Huffman {
         //1. переберем все символы по очереди и рассчитаем их частоту в Map count
             //для каждого символа добавим 1 если его в карте еще нет или инкремент если есть.
 
-        char[] elem =s.toCharArray();  //Копируем знаки данного экземпляра в массив знаков Юникода;
+        //Копируем знаки данного экземпляра в массив знаков Юникода;
+        char[] elem =s.toCharArray();
         for (int i=0;i<elem.length;i++)
         {
-            if (count.containsKey(elem[i]))
+            if (count.containsKey(elem[i])) //Проверка существования элемента с ключом elem[i];
             {
                 count.put(elem[i], count.get(elem[i])+1);
             }
@@ -138,7 +139,10 @@ public class A_Huffman {
         //2. перенесем все символы в приоритетную очередь в виде листьев
         PriorityQueue<Node> priorityQueue = new PriorityQueue<>();
 
-        for(Map.Entry<Character, Integer> pair : count.entrySet()) {
+        //Упорядочиваем map по ключам
+        //Сортируем по значениям                     набор ключей значений
+        for(Map.Entry<Character, Integer> pair : count.entrySet())
+        {
             priorityQueue.add(new LeafNode(pair.getValue(), pair.getKey()));
         }
 
@@ -161,7 +165,9 @@ public class A_Huffman {
         //.....
 
 
-        for (int i = 0; i < elem.length; i++) {
+        for (int i = 0; i < elem.length; i++)
+        {
+            //Обновляем значения объекта
             sb.append(codes.get(elem[i]));
         }
 
