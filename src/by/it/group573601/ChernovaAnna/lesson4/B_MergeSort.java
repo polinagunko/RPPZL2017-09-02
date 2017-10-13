@@ -61,24 +61,6 @@ public class B_MergeSort {
         int a = 0, b = 0, len = len_1 + len_2; // a, b - счетчики в массивах
         int[] result = new int[len];
         for (int i = 0; i < len; i++) {
-//            if (b < len_2 && a < len_1) {
-//                if (a1[a] > a2[b]){
-//                    result[i] = a2[b];
-//                    b++;
-//                }
-//
-//                else{
-//                    result[i] = a1[a];
-//                    a++;
-//                }
-//
-//            } else if (b < len_2) {
-//                result[i] = a2[b];
-//                b++;
-//            } else {
-//                result[i] = a1[a];
-//                a++;
-//            }
             if (a == a1.length)
                 result[i] = a2[b++];
             else if (b == a2.length)
