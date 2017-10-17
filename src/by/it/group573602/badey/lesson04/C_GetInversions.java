@@ -77,7 +77,6 @@ public class C_GetInversions {
                 if((middle-i)==0)
                     result+=1;
                 buff[k++]=array[j++];
-                System.out.println(array[i]+"*"+array[j-1]+"-"+result);
             }
         }
         return result;
