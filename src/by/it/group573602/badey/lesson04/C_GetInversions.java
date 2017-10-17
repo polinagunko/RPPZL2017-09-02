@@ -48,7 +48,7 @@ public class C_GetInversions {
         }
         int result = 0;
         //!!!!!!!!!!!!!!!!!!!!!!!!     тут ваше решение   !!!!!!!!!!!!!!!!!!!!!!!!
-
+        result=inversionsCount(a,0, a.length-1);
 
 
 
@@ -61,10 +61,31 @@ public class C_GetInversions {
         return result;
     }
 
+    int inversionsCount(int[] array, int start, int end){
+        if(start>=end)
+            return 0;
+        int middle=(start+end)/2;
+        int result=inversionsCount(array, start, middle);
+        result+=inversionsCount(array, middle+1, end);
+        int i=start, j=middle+1, k=1;
+        int[] buff=new int[array.length];
+        while(i<middle || j<end){
+            if(j==end || (i<middle && array[i]<array[j]))
+                buff[k++]=array[i++];
+            else{
+                result+=middle-i;
+                if((middle-i)==0)
+                    result+=1;
+                buff[k++]=array[j++];
+                System.out.println(array[i]+"*"+array[j-1]+"-"+result);
+            }
+        }
+        return result;
+    }
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
-        InputStream stream = new FileInputStream(root + "by/it/a_khmelev/lesson04/dataC.txt");
+        InputStream stream = new FileInputStream(root + "by/it/group573602/badey/lesson04/dataC.txt");
         C_GetInversions instance = new C_GetInversions();
         //long startTime = System.currentTimeMillis();
         int result = instance.calc(stream);
