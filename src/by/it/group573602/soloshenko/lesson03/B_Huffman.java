@@ -3,6 +3,9 @@ package by.it.group573602.soloshenko.lesson03;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.regex.Pattern;
 
 // Lesson 3. B_Huffman.
 // Восстановите строку по её коду и беспрефиксному коду символов.
@@ -43,17 +46,42 @@ import java.util.Scanner;
 public class B_Huffman {
 
     String decode(File file) throws FileNotFoundException {
-        StringBuilder result=new StringBuilder();
+        StringBuilder result = new StringBuilder();
         //прочитаем строку для кодирования из тестового файла
-        Scanner scanner = new Scanner(file);
+        //Scanner scanner = new Scanner(file);
+        Scanner scanner = new Scanner(file).useDelimiter("[\\W]");
         Integer count = scanner.nextInt();
         Integer length = scanner.nextInt();
+        //  System.out.println("count"+count);
+        //   System.out.println("length"+length);
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! НАЧАЛО ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
         //тут запишите ваше решение
+        Map<String, Character> characterMap = new HashMap<String, Character>();
 
-
-
-
+        int i;
+        for (i = 0; i < count; i++) {
+            scanner.next();
+            Character sym;
+            sym = scanner.next().charAt(0);
+             System.out.println(sym);
+            scanner.next();
+            String z;
+            z = scanner.next();
+             System.out.println(z);
+            characterMap.put(z, sym);
+        }
+        scanner.next();
+        String code = scanner.next();
+        StringBuilder sb = new StringBuilder();
+        for (i = 0; i < code.length(); i++) {
+            sb.append(code.charAt(i));
+            int si=sb.length();
+           // System.out.println(code.charAt(i) +"si="+si);
+            if ('0' == code.charAt(i)|| 3 == si ) {
+                result.append(characterMap.get(sb.toString()));
+                sb.setLength(0);
+            }
+        }
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! КОНЕЦ ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
         return result.toString(); //01001100100111
     }
