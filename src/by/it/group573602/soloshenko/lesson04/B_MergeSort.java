@@ -35,9 +35,14 @@ public class B_MergeSort {
         int i2=m;
         int s=ifi;
 
-        int[] res = s1 == mas1 ? mas2 :mas1;
+        int[] res ;
+        if(s1 == mas1)
+            res=mas2;
+        else res=mas1;
         while(i1<m && i2<il){
-            res[s++] = s1[i1]<s2[i2]?s1[i1++]:s2[i2++];
+            if(s1[i1]<s2[i2])
+            res[s++] = s1[i1++];
+            else  res[s++]=s2[i2++];
         }
         while(i1<m){
             res[s++]=s1[i1++];
@@ -65,13 +70,10 @@ public class B_MergeSort {
         }
         int[] mas1 = Arrays.copyOf(a,a.length);
         int[] mas2 = new int[a.length];
-        a = mergeSort(mas1,mas2,0,a.length);
+
         // тут ваше решение (реализуйте сортировку слиянием)
         // https://ru.wikipedia.org/wiki/Сортировка_слиянием
-
-       // a = mergeSort(a, 0, a.length - 1);
-
-        //a=sort(a);
+        a = mergeSort(mas1,mas2,0,a.length);
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return a;
     }
