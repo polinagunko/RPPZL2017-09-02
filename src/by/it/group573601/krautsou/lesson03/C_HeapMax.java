@@ -45,21 +45,47 @@ public class C_HeapMax {
 
         int siftDown(int i) { //просеивание вверх
 
+            while ((2 * i + 1) < heap.size()) {
+                int left = 2 * i + 1;
+                int right = 2 * i + 2;
+                int temp = left;
+                if (right < heap.size() && heap.get(right) < heap.get(left)) {
+                    temp = right;
+                }
+                if (heap.get(i) > heap.get(temp)) {
+                    long temp2 = heap.get(i);
+                    heap.set(i, heap.get(temp));
+                    heap.set(temp, temp2);
+                }
+                i = temp;
+            }
+
             return i;
         }
 
         int siftUp(int i) { //просеивание вниз
-
+            while (i > 0) {
+                int parent = (i - 1) / 2;
+                if (parent >= 0 && heap.get(parent) < heap.get(i)) {
+                    long temp = heap.get(i);
+                    heap.set(i, heap.get(parent));
+                    heap.set(parent, temp);
+                }
+                i = parent;
+            }
             return i;
         }
 
         void insert(Long value) { //вставка
+            heap.add(value);
+            siftUp(heap.size() - 1);
         }
 
         Long extractMax() { //извлечение и удаление максимума
-            Long result = null;
-
+            Long result = heap.remove(0);
+            siftDown(0);
             return result;
+
         }
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! КОНЕЦ ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
     }
@@ -76,7 +102,7 @@ public class C_HeapMax {
             if (s.equalsIgnoreCase("extractMax")) {
                 Long res = heap.extractMax();
                 if (res != null && res > maxValue) maxValue = res;
-                System.out.println();
+                System.out.println("ExtractMax:" + maxValue);
                 i++;
             }
             if (s.contains(" ")) {

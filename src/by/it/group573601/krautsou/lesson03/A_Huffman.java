@@ -129,25 +129,25 @@ public class A_Huffman {
             } else {
                 count.put(s.charAt(i), 1);
             }
-
         }
-
+        System.out.println(count);
         //2. перенесем все символы в приоритетную очередь в виде листьев
         PriorityQueue<Node> priorityQueue = new PriorityQueue<>();
         for (Character key : count.keySet()) {
             priorityQueue.add(new LeafNode(count.get(key), key));
         }
-
-        Node left, right;
-        while (priorityQueue.size() != 1) {
-            left = priorityQueue.poll();
-            right = priorityQueue.poll();
-            priorityQueue.add(new InternalNode(left, right));
-        }
         //3. вынимая по два узла из очереди (для сборки родителя)
         //и возвращая этого родителя обратно в очередь
         //построим дерево кодирования Хаффмана.
         //У родителя частоты детей складываются.
+        Node left, right;
+        while (priorityQueue.size() != 1) {
+            left = priorityQueue.remove();
+            right = priorityQueue.remove();
+            priorityQueue.add(new InternalNode(left, right));
+
+        }
+
 
         //4. последний из родителей будет корнем этого дерева
         //это будет последний и единственный элемент оставшийся в очереди priorityQueue.
@@ -172,7 +172,6 @@ public class A_Huffman {
         long startTime = System.currentTimeMillis();
         String result = instance.encode(f);
         long finishTime = System.currentTimeMillis();
-        System.out.println("fdsfsdfsd");
         System.out.printf("%d %d\n", codes.size(), result.length());
         for (Map.Entry<Character, String> entry : codes.entrySet()) {
             System.out.printf("%s: %s\n", entry.getKey(), entry.getValue());

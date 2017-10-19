@@ -3,6 +3,7 @@ package by.it.group573601.krautsou.lesson04;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -25,8 +26,6 @@ public class B_MergeSort {
     int[] getMergeSort(InputStream stream) throws FileNotFoundException {
         //подготовка к чтению данных
         Scanner scanner = new Scanner(stream);
-        //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-
         //размер массива
         int n = scanner.nextInt();
         //сам массива
@@ -34,16 +33,41 @@ public class B_MergeSort {
         for (int i = 0; i < n; i++) {
             a[i] = scanner.nextInt();
             System.out.println(a[i]);
-
         }
-
-        // тут ваше решение (реализуйте сортировку слиянием)
-        // https://ru.wikipedia.org/wiki/Сортировка_слиянием
-
-        //a = mergeSort(a, 0, a.length - 1);
-
+        mergeSort(a, 0, a.length - 1);
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return a;
+    }
+
+    private static void mergeSort(int[] array, int l, int r) {
+
+        if (r <= l) {
+            return;
+        }
+        int mid = l + (r - l) / 2;
+        mergeSort(array, l, mid);
+        mergeSort(array, mid + 1, r);
+
+        int[] tmpBuf = Arrays.copyOf(array, array.length);
+
+        System.arraycopy(array, l, tmpBuf, l, r + 1 - l);
+
+        int i = l, j = mid + 1;
+        for (int k = l; k <= r; k++) {
+            if (i > mid) {
+                array[k] = tmpBuf[j];
+                j++;
+            } else if (j > r) {
+                array[k] = tmpBuf[i];
+                i++;
+            } else if (tmpBuf[j] < tmpBuf[i]) {
+                array[k] = tmpBuf[j];
+                j++;
+            } else {
+                array[k] = tmpBuf[i];
+                i++;
+            }
+        }
     }
 
     public static void main(String[] args) throws FileNotFoundException {
