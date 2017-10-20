@@ -46,25 +46,48 @@ public class C_GetInversions {
         for (int i = 0; i < n; i++) {
             a[i] = scanner.nextInt();
         }
-        int result = 0;
-        //!!!!!!!!!!!!!!!!!!!!!!!!     тут ваше решение   !!!!!!!!!!!!!!!!!!!!!!!!
 
-
-
-
-
-
-
-
-
-        //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
+        return mergeCount(a, new int[a.length], 0, a.length - 1);
     }
+
+    int mergeCount(int[] arr, int[] temp, int left, int right) {
+        int middle;
+        if (right > left) {
+            middle = (right + left) / 2;
+            return mergeCount(arr, temp, left, middle) + mergeCount(arr, temp, middle + 1, right) + count(arr, temp, left, middle + 1, right);
+        }
+        return 0;
+    }
+
+    int count(int[] arr, int[] temp, int left, int middle, int right) {
+        int i = left, j = middle, k = left;
+        int inv_count = 0;
+
+        while (i < middle && j <= right) {
+            if (arr[i] <= arr[j]) {
+                temp[k++] = arr[i++];
+            }
+            else {
+                temp[k++] = arr[j++];
+                inv_count += middle - i;
+            }
+        }
+
+        while (i < middle)
+            temp[k++] = arr[i++];
+        while (j <= right)
+            temp[k++] = arr[j++];
+        for (i = left; i <= right; i++)
+            arr[i] = temp[i];
+
+        return inv_count;
+    }
+
 
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
-        InputStream stream = new FileInputStream(root + "by/it/a_khmelev/lesson04/dataC.txt");
+        InputStream stream = new FileInputStream(root + "by/it/group573601/podgaiskii/lesson04/dataC.txt");
         C_GetInversions instance = new C_GetInversions();
         //long startTime = System.currentTimeMillis();
         int result = instance.calc(stream);

@@ -33,22 +33,57 @@ public class B_MergeSort {
         int[] a = new int[n];
         for (int i = 0; i < n; i++) {
             a[i] = scanner.nextInt();
-            System.out.println(a[i]);
-
+            System.out.print(a[i] + " ");
         }
+        System.out.println("");
 
-        // тут ваше решение (реализуйте сортировку слиянием)
-        // https://ru.wikipedia.org/wiki/Сортировка_слиянием
-
-        //a = mergeSort(a, 0, a.length - 1);
+        a = mergeSort(a);
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return a;
     }
 
+    private int[] mergeSort(int[] a) {
+        int left = 0, right = a.length - 1;
+        int middle = (left + right) / 2;
+        int[] result;
+        if (a.length >= 2)
+            result = merge(mergeSort(split(a, left, middle)), mergeSort(split(a, middle + 1, right)));
+        else
+            result = new int[]{a[0]};
+        return result;
+    }
+
+    private int[] split(int[] a, int from, int to) {
+        int[] result = new int[to - from + 1];
+        int i = from;
+        while (i <= to) {
+            result[i - from] = a[i];
+            i++;
+        }
+        return result;
+    }
+
+    private int[] merge(int[] first, int[] second) {
+        int n = first.length + second.length;
+        int[] result = new int[n];
+        int i = 0, j = 0, k = 0;
+        while(i < first.length || j < second.length) {
+            if (i == first.length)
+                result[k++] = second[j++];
+            else if (j == second.length)
+                result[k++] = first[i++];
+            else if (first[i] <= second[j])
+                result[k++] = first[i++];
+            else
+                result[k++] = second[j++];
+        }
+        return result;
+    }
+
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
-        InputStream stream = new FileInputStream(root + "by/it/a_khmelev/lesson04/dataB.txt");
+        InputStream stream = new FileInputStream(root + "by/it/group573601/podgaiskii/lesson04/dataB.txt");
         B_MergeSort instance = new B_MergeSort();
         //long startTime = System.currentTimeMillis();
         int[] result = instance.getMergeSort(stream);
