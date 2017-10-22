@@ -3,6 +3,7 @@ package by.it.group573602.pinchuk.lesson04;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -34,16 +35,41 @@ public class B_MergeSort {
         for (int i = 0; i < n; i++) {
             a[i] = scanner.nextInt();
             System.out.println(a[i]);
-
         }
-
-        // тут ваше решение (реализуйте сортировку слиянием)
-        // https://ru.wikipedia.org/wiki/Сортировка_слиянием
-
-        //a = mergeSort(a, 0, a.length - 1);
-
-        //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
+        mSort(a, 0, a.length - 1);
         return a;
+    }
+
+    private static void mSort(int[] array, int f, int ff) {
+
+        if (ff <=f) {
+            return;
+        }
+        int mid = f + (ff - f) / 2;//!!!!!!!!!!!!!
+        mSort(array, f, mid);
+        mSort(array, mid + 1, ff);
+
+        int[] Buf = Arrays.copyOf(array, array.length);
+
+        System.arraycopy(array, f, Buf, f, ff + 1 - f);
+
+        int i = f;
+        int j = mid + 1;
+        for (int k = f; k <= ff; k++) {
+            if (i > mid) {
+                array[k] = Buf[j];//!!!!!!!!!!!!!
+                j++;
+            } else if (j > ff) {
+                array[k] = Buf[i];
+                i++;
+            } else if (Buf[j] < Buf[i]) {//!!!!!!!!!!!!!
+                array[k] = Buf[j];
+                j++;
+            } else {
+                array[k] = Buf[i];
+                i++;
+            }
+        }
     }
 
     public static void main(String[] args) throws FileNotFoundException {
