@@ -22,33 +22,33 @@ Sample Output:
 */
 public class B_MergeSort {
 
-    public static int[] mergeSort(int[] mas1,int [] mas2,int ifi,int il){
-        if(ifi>= il-1){
-            return mas1;
-        }
+    public static int[] Sort(int[] mas){
+        if(mas.length<2) return mas;
+        int l=mas.length/2;
+        int[] s1=Arrays.copyOfRange(mas,0,l);
+        int[] s2=Arrays.copyOfRange(mas,l, mas.length);
+        return mergeSort(Sort(s1),Sort(s2));
+    }
 
-        int m=ifi+(il-ifi)/2;
-        int[] s1 = mergeSort(mas1,mas2,ifi,m);
-        int[] s2 = mergeSort(mas1,mas2,m,il);
+    public static int[] mergeSort(int[] s1,int []s2){
 
-        int i1=ifi;
-        int i2=m;
-        int s=ifi;
 
-        int[] res ;
-        if(s1 == mas1)
-            res=mas2;
-        else res=mas1;
-        while(i1<m && i2<il){
-            if(s1[i1]<s2[i2])
-            res[s++] = s1[i1++];
-            else  res[s++]=s2[i2++];
-        }
-        while(i1<m){
-            res[s++]=s1[i1++];
-        }
-        while(i2<il){
-            res[s++]=s2[i2++];
+        int n=s1.length+s2.length;
+        int [] res = new int[n];
+        int i1=0, i2=0;
+        for(int i=0;i<n;i++){
+            if(i1==s1.length){
+                res[i]=s2[i2++];
+            } else if(i2==s2.length){
+                res[i]=s1[i1++];
+            } else{
+                if(s1[i1]<s2[i2]){
+                    res[i]=s1[i1++];
+                }
+                else{
+                    res[i]=s2[i2++];
+                }
+            }
         }
         return res;
     }
@@ -70,10 +70,10 @@ public class B_MergeSort {
         }
         int[] mas1 = Arrays.copyOf(a,a.length);
         int[] mas2 = new int[a.length];
-
         // тут ваше решение (реализуйте сортировку слиянием)
         // https://ru.wikipedia.org/wiki/Сортировка_слиянием
-        a = mergeSort(mas1,mas2,0,a.length);
+
+        a = Sort(a);
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return a;
     }
