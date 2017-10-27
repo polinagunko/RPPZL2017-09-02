@@ -42,11 +42,13 @@ public class FiboA {
         //здесь нужно реализовать вариант без ограничения на размер числа,
         //в котором код совпадает с мат.определением чисел Фибоначчи
         //время O(2^n)
-        //return BigInteger.ZERO;
-        if (n <= 1)
-            return BigInteger.valueOf(n);
-        else
-            return slowA(n - 1).add(slowA(n - 2));
+
+        BigInteger value = BigInteger.ZERO;
+        if (n > 1)
+            value = slowA(n - 1).add(slowA(n - 2));
+        else if(n==1)
+            value = BigInteger.valueOf(n);
+        return value;
     }
 
 

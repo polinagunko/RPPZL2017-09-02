@@ -38,21 +38,29 @@ import java.util.Scanner;
 public class A_QSort {
 
     //отрезок
-    private class Segment  implements Comparable{
+    private class Segment  implements Comparable<Segment>{
         int start;
         int stop;
 
         Segment(int start, int stop){
-            this.start = start;
-            this.stop = stop;
+            if(start<stop){
+                this.start = start;
+                this.stop = stop;
+            }
+            else{
+                this.start=stop;
+                this.stop=start;
+            }
             //тут вообще-то лучше доделать конструктор на случай если
             //концы отрезков придут в обратном порядке
         }
 
         @Override
-        public int compareTo(Object o) {
+        public int compareTo(Segment o) {
             //подумайте, что должен возвращать компаратор отрезков
-            return 0;
+            if((start-o.start)!=0)
+                return start-o.start;
+            return stop-o.stop;
         }
     }
 
@@ -87,6 +95,7 @@ public class A_QSort {
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
+
 
 
     public static void main(String[] args) throws FileNotFoundException {

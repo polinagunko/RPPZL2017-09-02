@@ -23,7 +23,8 @@ public class B_Sheduler {
     }
     class EventComparator implements Comparator<Event>{
         public int compare(Event o1, Event o2){
-            return Integer.compare(o1.stop,o2.stop);
+            //или Integer.compare(o1.stop,o2.stop);
+            return o1.stop-o2.stop;
         }
     }
 
@@ -50,11 +51,12 @@ public class B_Sheduler {
         List<Event> result;
         result = new ArrayList<>();
         Arrays.sort(events,new EventComparator());
-        int i=1;
-        result.add(events[0]);
-        while(i<events.length-1){
-            if(events[i].start >= result.get(result.size()-1).stop)
+        int i=0, time=from;
+        while(time<to && i<events.length){
+            if(events[i].start >= time){
                 result.add(events[i]);
+                time=events[i].stop;
+            }
             i++;
         }
         return result;                        //вернем итог
