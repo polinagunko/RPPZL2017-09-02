@@ -37,13 +37,34 @@ public class B_MergeSort {
 
         }
 
-        // тут ваше решение (реализуйте сортировку слиянием)
-        // https://ru.wikipedia.org/wiki/Сортировка_слиянием
-
-        //a = mergeSort(a, 0, a.length - 1);
-
+        a = mergeSort(a);
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return a;
+    }
+
+    private int[] mergeSort(int[]m){
+        if (m.length<2) return m;
+        int[] left = new int[m.length/2];
+        int [] right = new int[m.length-left.length];
+        System.arraycopy(m,0,left,0,left.length);
+        System.arraycopy(m, left.length, right, 0, right.length);
+        left=mergeSort(left);
+        right=mergeSort(right);
+        return merge(left, right);
+    }
+
+    private int[] merge(int[] mI, int[] mJ)
+    {
+        int i=0;
+        int j=0;
+        int[] mK=new int [mI.length + mJ.length];
+        for(int k=0; k<mK.length; k++){
+            if (j==mJ.length || (i<mI.length && mI[i] <=mJ[j]))
+                mK[k]=mI[i++];
+            else
+                mK[k]=mJ[j++];
+        }
+        return mK;
     }
 
     public static void main(String[] args) throws FileNotFoundException {
