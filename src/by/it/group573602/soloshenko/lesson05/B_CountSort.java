@@ -25,7 +25,7 @@ public class B_CountSort {
         //размер массива
         int n = scanner.nextInt();
         int[] points=new int[n];
-int min=0,max=0;
+int min=Integer.MAX_VALUE,max=0;
         //читаем точки
         for (int i = 0; i < n; i++) {
             points[i]=scanner.nextInt();
@@ -34,6 +34,8 @@ int min=0,max=0;
             else if(points[i]>max)
                 max=points[i];
         }
+        System.out.println("min="+min);
+        System.out.println("max=="+max);
         //тут реализуйте логику задачи с применением сортировки подсчетом
 
 int[] mas = new int[max-min+1];
