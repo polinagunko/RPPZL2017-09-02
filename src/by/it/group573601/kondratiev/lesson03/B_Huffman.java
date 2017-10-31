@@ -2,7 +2,7 @@ package by.it.group573601.kondratiev.lesson03;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.util.*;
 
 // Lesson 3. B_Huffman.
 // Восстановите строку по её коду и беспрефиксному коду символов.
@@ -42,6 +42,7 @@ import java.util.Scanner;
 
 public class B_Huffman {
 
+
     String decode(File file) throws FileNotFoundException {
         StringBuilder result=new StringBuilder();
         //прочитаем строку для кодирования из тестового файла
@@ -50,6 +51,33 @@ public class B_Huffman {
         Integer length = scanner.nextInt();
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! НАЧАЛО ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
         //тут запишите ваше решение
+         Map<Character, String> codes = new TreeMap<>();
+        String line=new String();
+        line=scanner.nextLine();
+        for(int i=0;i<count;i++){
+            line=scanner.nextLine();
+            Character key;
+            String value=new String();
+            key=line.charAt(0);
+            value=line.substring(3);
+            codes.put(key,value);
+
+        }
+
+        String textCode= new String();
+        textCode=scanner.nextLine();
+        int k=0;
+        for(int i=0;i<textCode.length()+1;i++)
+        {
+            for(Character key : codes.keySet())
+            {
+                if(codes.get(key).equals(textCode.substring(k,i)))
+                {
+                    result.append(key);
+                    k=i;
+                }
+            }
+        }
 
 
 
@@ -60,7 +88,7 @@ public class B_Huffman {
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
-        File f = new File(root + "by/it/a_khmelev/lesson03/encodeHuffman.txt");
+        File f = new File(root + "by/it/group573601/kondratiev/lesson03/encodeHuffman.txt");
         B_Huffman instance = new B_Huffman();
         String result = instance.decode(f);
         System.out.println(result);
