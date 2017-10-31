@@ -23,18 +23,18 @@ public class A_VideoRegistrator {
     }
     //модификаторы доступа опущены для возможности тестирования
     List<Double> calcStartTimes(double[] events, double workDuration){
-        //events - события которые нужно зарегистрировать
-        //timeWorkDuration время работы видеокамеры после старта
+                                                             //events - события которые нужно зарегистрировать
+                                                             // timeWorkDuration время работы видеокамеры после старта
         List<Double> result;
         result = new ArrayList<>();
-        int i=0;                              //i - это индекс события events[i]
-        //комментарии от проверочного решения сохранены для подсказки, но вы можете их удалить.
+        int i=0;                                             //i - это индекс события events[i]
+                                                             //комментарии от проверочного решения сохранены для подсказки, но вы можете их удалить.
         Arrays.sort(events);
 
         while (i<events.length-1)    {
-                                                    //подготовка к жадному поглощению массива событий
+                                                              //подготовка к жадному поглощению массива событий
            result.add(events[i]);
-           Double fin=events[i]+workDuration;                         //hint: сортировка Arrays.sort обеспечит скорость алгоритма
+           Double fin=events[i]+workDuration;                 //hint: сортировка Arrays.sort обеспечит скорость алгоритма
             while(events[i]<fin)
              i++;                           // C*(n log n) + C1*n = O(n log n)
 
