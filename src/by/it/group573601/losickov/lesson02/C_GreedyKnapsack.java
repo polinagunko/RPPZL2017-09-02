@@ -14,12 +14,14 @@ package by.it.group573601.losickov.lesson02;
  */
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class C_GreedyKnapsack {
     private class Item implements Comparable<Item> {
         int cost;
         int weight;
+        int allPrice;
 
         Item(int cost, int weight) {
             this.cost = cost;
@@ -37,8 +39,10 @@ public class C_GreedyKnapsack {
         @Override
         public int compareTo(Item o) {
             //тут может быть ваш компаратор
-
-
+            if (allPrice > o.allPrice)
+                return -1;
+            else if (allPrice < o.allPrice)
+                return 1;
             return 0;
         }
     }
@@ -56,22 +60,29 @@ public class C_GreedyKnapsack {
             System.out.println(item);
         }
         System.out.printf("Всего предметов: %d. Рюкзак вмещает %d кг.\n",n,W);
+        for (int i=0;i<items.length;i++) {
+            items[i].allPrice = items[i].cost / items[i].weight;
+        }
 
-        //тут необходимо реализовать решение задачи
-        //итогом является максимально воможная стоимость вещей в рюкзаке
-        //вещи можно резать на кусочки (непрерывный рюкзак)
-        double result = 0;
-        //тут реализуйте алгоритм сбора рюкзака
-        //будет особенно хорошо, если с собственной сортировкой
-        //кроме того, можете описать свой компаратор в классе Item
-        //ваше решение.
+        Arrays.sort(items);
+        int final_result = 0, currentN = n, currentW = W;
+        for (int i=0;i<items.length;i++) {
+            if (items[i].weight <= currentW) {
+                currentW -= items[i].weight;
+                final_result += items[i].cost;
+                currentN--;
+            }
+            else if (items[i].weight > currentW && currentN != 0) {
+                final_result += items[i].allPrice * currentW;
+                currentW = 0;
+                break;
+            }
+            else break;
+        }
 
 
-
-
-
-        System.out.printf("Удалось собрать рюкзак на сумму %f\n",result);
-        return result;
+        System.out.printf("Удалось собрать рюкзак на сумму %d\n",final_result);
+        return final_result;
     }
 
     public static void main(String[] args) throws FileNotFoundException {
