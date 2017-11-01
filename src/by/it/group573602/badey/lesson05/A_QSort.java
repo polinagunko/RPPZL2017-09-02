@@ -38,32 +38,62 @@ import java.util.Scanner;
 public class A_QSort {
 
     //отрезок
-    private class Segment  implements Comparable<Segment>{
+    private class Segment  implements Comparable{
         int start;
         int stop;
 
         Segment(int start, int stop){
-            if(start<stop){
-                this.start = start;
-                this.stop = stop;
-            }
-            else{
-                this.start=stop;
-                this.stop=start;
-            }
+            this.start = start;
+            this.stop = stop;
             //тут вообще-то лучше доделать конструктор на случай если
             //концы отрезков придут в обратном порядке
         }
 
+
+
         @Override
-        public int compareTo(Segment o) {
-            //подумайте, что должен возвращать компаратор отрезков
-            if((start-o.start)!=0)
-                return start-o.start;
-            return stop-o.stop;
+        public int compareTo(Object o) {
+
+            return 0;
+        }
+    }
+    private class Point implements Comparable<Point>{
+        int p;
+        int i;
+        private Point(int p,int i){
+            this.p=p;
+            this.i=i;
+        }
+        public int compareTo(Point obj){
+            if((p-obj.p)!=0)
+                return p-obj.p;
+            else return i-obj.i;
         }
     }
 
+    private int part(Point[] mas,int l,int h){
+        Point x=mas[l];
+        int m=l;
+        for(int i=l+1; i<h;i++){
+            if(mas[i].compareTo(x)<=0){
+                m++;
+                Point tmp=mas[i];
+                mas[i]=mas[m];
+                mas[m]=tmp;
+            }
+        }
+        Point tmp=mas[l];
+        mas[l]=mas[m];
+        mas[m]=tmp;
+        return m;
+    }
+    private void qsort(Point[] array, int begin, int end){
+        if(begin < end){
+            int newArray=part(array, begin, end);
+            qsort(array, begin,newArray-1);
+            qsort(array,newArray+1, end);
+        }
+    }
 
     int[] getAccessory(InputStream stream) throws FileNotFoundException {
         //подготовка к чтению данных
@@ -71,25 +101,47 @@ public class A_QSort {
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         //число отрезков отсортированного массива
         int n = scanner.nextInt();
-        Segment[] segments=new Segment[n];
+        // Segment[] segments=new Segment[n];
         //число точек
         int m = scanner.nextInt();
-        int[] points=new int[m];
+        //int[] points=new int[m];
+        Point[] points = new Point[n+n+m];
         int[] result=new int[m];
 
+        int index=0;
         //читаем сами отрезки
         for (int i = 0; i < n; i++) {
             //читаем начало и конец каждого отрезка
-            segments[i]=new Segment(scanner.nextInt(),scanner.nextInt());
+            // segments[i]=new Segment(scanner.nextInt(),scanner.nextInt());
+            // System.out.println("segments="+segments[i]);
+            int start = scanner.nextInt();
+            int stop = scanner.nextInt();
+            if(start>stop){
+                int tmp = start;
+                start = stop;
+                stop = tmp;
+            }
+            points[index++] = new Point(start, -1);
+            points[index++] = new Point(stop,m+1);
         }
         //читаем точки
-        for (int i = 0; i < n; i++) {
-            points[i]=scanner.nextInt();
+        for (int i = 0; i < m; i++) {
+            // points[i]=scanner.nextInt();
+            int x= scanner.nextInt();
+            points[index++] = new Point(x,i);
+
         }
         //тут реализуйте логику задачи с применением быстрой сортировки
         //в классе отрезка Segment реализуйте нужный для этой задачи компаратор
-
-
+        qsort(points, 0, points.length-1);
+        int s=0;
+        for(Point point:points){
+            if(point.i<0)
+                s++;
+            else if(point.i>n)
+                s--;
+            else result[point.i]=s;
+        }
 
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
