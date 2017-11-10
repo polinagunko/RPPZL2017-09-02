@@ -119,21 +119,43 @@ public class A_Huffman {
         //все комментарии от тестового решения были оставлены т.к. это задание A.
         //если они вам мешают их можно удалить
 
-        Map<Character, Integer> count = new HashMap<>();
+        Map<Character, Integer> Count = new HashMap<>();
+        for (int I = 0; I < s.length(); I++) {
+            if (Count.containsKey(s.charAt(I))) {
+                Count.put(s.charAt(I), Count.get(s.charAt(I))+1);
+            }
+            else {
+                Count.put(s.charAt(I), 1);
+            }
+        }
         //1. переберем все символы по очереди и рассчитаем их частоту в Map count
-            //для каждого символа добавим 1 если его в карте еще нет или инкремент если есть.
+        //для каждого символа добавим 1 если его в карте еще нет или инкремент если есть.
 
         //2. перенесем все символы в приоритетную очередь в виде листьев
-        PriorityQueue<Node> priorityQueue = new PriorityQueue<>();
+        PriorityQueue<Node> PQ = new PriorityQueue<>();
+        for (Map.Entry<Character, Integer> Entry : Count.entrySet()) {
+            //создаем представление Map в виде пары ключ-значение
+            PQ.add(new LeafNode(Entry.getValue(), Entry.getKey()));
+        }
 
         //3. вынимая по два узла из очереди (для сборки родителя)
         //и возвращая этого родителя обратно в очередь
         //построим дерево кодирования Хаффмана.
         //У родителя частоты детей складываются.
+        int n = PQ.size();
+        for (int i = n+1; i < 2*n; i++) {
+            Node left = PQ.poll();
+            Node right = PQ.poll();
+            PQ.add(new InternalNode(left, right));
+        }
 
         //4. последний из родителей будет корнем этого дерева
         //это будет последний и единственный элемент оставшийся в очереди priorityQueue.
         StringBuilder sb = new StringBuilder();
+        PQ.peek().fillCodes(sb.toString());
+        for(char letter: s.toCharArray()){
+            sb.append(codes.get(letter));
+        }
         //.....
 
         return sb.toString();
