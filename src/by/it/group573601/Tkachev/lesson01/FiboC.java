@@ -22,19 +22,26 @@ public class FiboC {
     }
 
     long fasterC(long n, int m) {
+
         long Mass[] = new long[6 * m];
         long J = 1;
         int I = 2;
+
         Mass[0] = 0;
         Mass[1] = 1;
+
         do {
-            Mass[I]=(Mass[I -1] + Mass[I -2]) % m;
+            Mass[I] = (Mass[I - 1] + Mass[I - 2]) % m;
+
             J += 1;
-            if(Mass[I] == 1 && Mass[I - 1] == 0) break;
+
+            if(Mass[I] == 1 && Mass[I - 1] == 0)
+                break;
+
             I += 1;
         } while (I < n);
-        int X = (int)(n % J);
-        return Mass[X];
+
+        return Mass[(int)(n % J)];
     }
 }
 

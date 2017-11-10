@@ -32,8 +32,8 @@ public class B_Sheduler {
 
     Comparator<Event> comparator = new Comparator<Event>() {
         @Override
-        public int compare(Event eventO1, Event eventO2) {
-            return eventO1.stop - eventO2.stop;
+        public int compare(Event event1, Event event2) {
+            return event1.stop - event2.stop;
         }
     };
 
@@ -41,7 +41,7 @@ public class B_Sheduler {
         B_Sheduler instance = new B_Sheduler();
         Event[] events = {  new Event(0, 3),  new Event(0, 1), new Event(1, 2), new Event(3, 5),
                             new Event(1, 3),  new Event(1, 3), new Event(1, 3), new Event(3, 6),
-                            new Event(2, 7),  new Event(2, 3), new Event(2, 7), new Event(7, 9),
+                            new Event(2, 7),  new Event(0, 10), new Event(2, 7), new Event(7, 9),
                             new Event(3, 5),  new Event(2, 4), new Event(2, 3), new Event(3, 7),
                             new Event(4, 5),  new Event(6, 7), new Event(6, 9), new Event(7, 9),
                             new Event(8, 9),  new Event(4, 6), new Event(8, 10), new Event(7, 10)
@@ -61,13 +61,17 @@ public class B_Sheduler {
         //ваше решение.
 
         Arrays.sort(events, comparator);
+
         int j = 0, finish;
         while (events[j].start < from) j++;
 
         while (j < events.length - 1) {
+
             result.add(events[j]);
             finish = events[j].stop;
-            while (finish > events[j].start && events[j].stop < to) j++;
+
+            while (finish > events[j].start && events[j].stop < to)
+                j++;
             if (events[j].stop == to ) return result;
         }
         return result;                        //вернем итог

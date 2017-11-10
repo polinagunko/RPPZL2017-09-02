@@ -45,13 +45,17 @@ public class A_VideoRegistrator {
 
         Arrays.sort(events);
 
-        double duration;
+        double start;
         int i = 0;
+
         while (i < events.length - 1) {
+
             result.add(events[i]);
-            duration = events[i] + workDuration;
-            while (events[i] < duration) i += 1;
+            start = events[i] + workDuration;
+
+            while (events[i] < start)
+                i++;
         }
-        return result;                        //вернем итог
+        return result;
     }
 }
