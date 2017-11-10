@@ -38,29 +38,76 @@ import java.util.Scanner;
 public class C_HeapMax {
 
     private class MaxHeap {
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! НАЧАЛО ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! НАЧАЛО ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //тут запишите ваше решение.
         //Будет мало? Ну тогда можете его собрать как Generic и/или использовать в варианте B
+
         private List<Long> heap = new ArrayList<>();
 
-        int siftDown(int i) { //просеивание вверх
+        int siftDown(int I) {
+        //просеивание вниз
+            while (2*I + 1 < heap.size()){
 
+                int Left = 2*I + 1;
+                int Right = 2*I + 2;
+
+                int J = Left;
+
+                if (Right < heap.size() && heap.get(Right) > heap.get(Left)) {
+                    J = Right;
+                }
+
+                if (heap.get(I) >= heap.get(J)) break;
+
+                long temp = heap.get(I);
+
+                heap.set(I,heap.get(J));
+
+                heap.set(J,temp);
+
+                I = J;
+            }
+            return I;
+        }
+
+        int siftUp(int i) {
+        //просеивание вверх
+            while (heap.get(i) > heap.get((i-1) / 2) ){
+
+                long temp = heap.get(i);
+
+                heap.set(i,heap.get((i-1) / 2));
+
+                heap.set((i-1) / 2,temp);
+
+                i = (i-1) / 2;
+            }
             return i;
         }
 
-        int siftUp(int i) { //просеивание вниз
+        void insert(Long value) {
+        //вставка
+            heap.add(value);
 
-            return i;
+            int i = heap.indexOf(value);
+
+            siftUp(i);
         }
 
-        void insert(Long value) { //вставка
+        Long extractMax() {
+        //извлечение и удаление максимума
+            long x = heap.get(0);
+
+            heap.set(0, heap.get(heap.size() - 1));
+
+            heap.remove(heap.size() - 1);
+
+            siftDown(0);
+
+            return x;
         }
 
-        Long extractMax() { //извлечение и удаление максимума
-            Long result = null;
 
-            return result;
-        }
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! КОНЕЦ ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
     }
 
