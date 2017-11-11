@@ -122,19 +122,45 @@ public class A_Huffman {
         Map<Character, Integer> count = new HashMap<>();
         //1. переберем все символы по очереди и рассчитаем их частоту в Map count
             //для каждого символа добавим 1 если его в карте еще нет или инкремент если есть.
+        for(int i=0;i<s.length();i++){
+            if(count.containsKey(s.charAt(i)))
+                count.put(s.charAt(i),count.get(s.charAt(i))+1);
+            else
+                count.put(s.charAt(i),1);
+        }
+
 
         //2. перенесем все символы в приоритетную очередь в виде листьев
         PriorityQueue<Node> priorityQueue = new PriorityQueue<>();
+        for(Character key : count.keySet())
+        {
+            priorityQueue.add(new LeafNode(count.get(key),key));
+        }
+
+
 
         //3. вынимая по два узла из очереди (для сборки родителя)
         //и возвращая этого родителя обратно в очередь
         //построим дерево кодирования Хаффмана.
         //У родителя частоты детей складываются.
 
+        while(priorityQueue.size()!=1) {
+            Node internalNode = new InternalNode(priorityQueue.poll(), priorityQueue.poll());
+            priorityQueue.add(internalNode);
+        }
+
+
+
         //4. последний из родителей будет корнем этого дерева
         //это будет последний и единственный элемент оставшийся в очереди priorityQueue.
         StringBuilder sb = new StringBuilder();
         //.....
+       String st = new String();
+        priorityQueue.poll().fillCodes(st);
+        for(int i=0;i<s.length();i++)
+        {
+            sb.append(codes.get(s.charAt(i)));
+        }
 
         return sb.toString();
         //01001100100111
@@ -145,7 +171,7 @@ public class A_Huffman {
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
-        File f = new File(root + "by/it/a_khmelev/lesson03/dataHuffman.txt");
+        File f = new File(root + "by/it/group573601/kondratiev/lesson03/dataHuffman.txt");
         A_Huffman instance = new A_Huffman();
         long startTime = System.currentTimeMillis();
         String result = instance.encode(f);

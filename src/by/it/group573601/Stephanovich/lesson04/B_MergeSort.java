@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Scanner;
+import java.util.Arrays;
 
 /*
 Реализуйте сортировку слиянием для одномерного массива.
@@ -31,19 +32,59 @@ public class B_MergeSort {
         int n = scanner.nextInt();
         //сам массива
         int[] a = new int[n];
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++)
+        {
             a[i] = scanner.nextInt();
             System.out.println(a[i]);
-
         }
 
         // тут ваше решение (реализуйте сортировку слиянием)
         // https://ru.wikipedia.org/wiki/Сортировка_слиянием
 
+        a=MergeSort(a);
+
         //a = mergeSort(a, 0, a.length - 1);
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return a;
+    }
+
+    /*
+    Разбиваем массив на две части примерно одинакового размера
+    Каждая часть сортируется отдельно
+    Два массива соединяются в один, при этом наименьший из первых 2-ух массвов
+    записывается в рузультируюций массив, и эта операция повторяется,
+    пока не закончатся элементы в этих двух массивах.
+    */
+    private int[] merge(int[] massI, int[] massJ)
+    {
+        int i=0;
+        int j=0;
+        int[] m =new int[massI.length+massJ.length];
+        for (int a=0; a<m.length;a++)
+        {
+            if (j==massJ.length||(i<massI.length && massI[i]<=massJ[j]))
+            {
+                m[a]=massI[i++];
+            }else
+            {
+                m[a]=massJ[j++];
+            }
+        }
+        return m;
+    }
+
+    private int[] MergeSort(int[] mass)
+    {
+       if (mass.length<2)
+       {
+           return mass;
+       }
+       int le= mass.length/2;
+       int[] left= MergeSort(Arrays.copyOfRange(mass,0,le));
+       int[] right=MergeSort(Arrays.copyOfRange(mass,le,mass.length));
+       mass=merge(left,right);
+       return mass;
     }
 
     public static void main(String[] args) throws FileNotFoundException {

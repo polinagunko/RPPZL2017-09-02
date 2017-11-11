@@ -1,6 +1,8 @@
 package by.it.group573601.losickov.lesson02;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 /*
 даны интервальные события events
@@ -27,7 +29,12 @@ public class B_Sheduler {
             return "("+ start +":" + stop + ")";
         }
     }
-
+    Comparator<Event> comparator = new Comparator<Event>() {
+        @Override
+        public int compare(Event eventO1, Event eventO2) {
+            return eventO1.stop - eventO2.stop;
+        }
+    };
     public static void main(String[] args) {
         B_Sheduler instance = new B_Sheduler();
         Event[] events = {  new Event(0, 3),  new Event(0, 1), new Event(1, 2), new Event(3, 5),
@@ -49,13 +56,19 @@ public class B_Sheduler {
         //начало и конец событий могут совпадать.
         List<Event> result;
         result = new ArrayList<>();
-        //ваше решение.
 
-
-
-
-
-
+        Arrays.sort(events,comparator);
+        int i=0;
+       while (events[i].start < from)
+        i++;
+        while (i < events.length - 1) {
+            result.add(events[i]);
+            int finish = events[i].stop;
+            while (finish > events[i].start && events[i].stop<to)
+                i++;
+            if (events[i].stop == to )
+                return result;
+        }
         return result;                        //вернем итог
     }
 }

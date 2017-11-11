@@ -27,6 +27,8 @@ import java.util.Scanner;
 */
 
 public class A_BinaryFind {
+
+
     int[] findIndex(InputStream stream) throws FileNotFoundException {
         //подготовка к чтению данных
         Scanner scanner = new Scanner(stream);
@@ -47,13 +49,42 @@ public class A_BinaryFind {
             int value = scanner.nextInt();
             //тут реализуйте бинарный поиск индекса
 
-
-
-
-            result[i]=0;
+            int index=-1;
+            int left=0;
+            int right=n-1;
+            int middle=right;
+            for (;;)
+            {
+                if (a[middle]==value) //Находим середину массива
+                {
+                    index=middle;
+                    result[i]=index+1;
+                    break;
+                }else if (left==right) //Проверяем >,<,=
+                {
+                    break;
+                }
+                middle =(left+right)/2;
+                //Если искомое больше значит ищем только в правой половине
+                if (value<a[middle])
+                {
+                    right=middle;
+                }else
+                {
+                    left=middle+1;
+                }
+                if (index>-1) //Если меньше ищем в левой половине
+                {
+                    index++;
+                }
+                result[i]=index;
+                //С каждой итерацие кол-во данных для поиска делится надвое
+            }
+            //result[i]=0; Выводит нули
         }
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
+
     }
 
 

@@ -18,18 +18,23 @@ public class FiboB {
     public static void main(String[] args) {
 
         //вычисление чисел простым быстрым методом
-        FiboB fibo = new FiboB();
+        FiboB fiboB = new FiboB();
         int n = 55555;
-        System.out.printf("fastB(%d)=%d \n\t time=%d \n\n", n, fibo.fastB(n), fibo.time());
+        System.out.printf("fastB(%d)=%d \n\t time=%d \n\n", n, fiboB.fastB(n), fiboB.time());
     }
 
     BigInteger fastB(Integer n) {
         //здесь нужно реализовать вариант с временем O(n) и памятью O(n)
+
         BigInteger MAS[] = new BigInteger[n+1];
+
         MAS[0] = BigInteger.valueOf(0);
+
         MAS[1] = BigInteger.valueOf(1);
+
         for (int i = 2 ; i <= n ; i++)
             MAS[i] = MAS[i-1].add(MAS[i-2]);
+
         return MAS[n];
 
     }

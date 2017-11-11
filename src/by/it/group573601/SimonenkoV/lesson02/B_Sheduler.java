@@ -1,6 +1,9 @@
 package by.it.group573601.SimonenkoV.lesson02;
 
+import javax.management.ObjectName;
+import java.util.Comparator;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 /*
 даны интервальные события events
@@ -28,6 +31,15 @@ public class B_Sheduler {
         }
     }
 
+    public  class newCompareTo implements Comparator<Event>
+    {
+
+        @Override
+        public int compare(Event o1, Event o2) {
+            return (o1.stop - o2.stop);
+        }
+    }
+
     public static void main(String[] args) {
         B_Sheduler instance = new B_Sheduler();
         Event[] events = {  new Event(0, 3),  new Event(0, 1), new Event(1, 2), new Event(3, 5),
@@ -38,9 +50,13 @@ public class B_Sheduler {
                             new Event(8, 9),  new Event(4, 6), new Event(8, 10), new Event(7, 10)
                           };
 
+
+
         List<Event> starts = instance.calcStartTimes(events,0,10);  //рассчитаем оптимальное заполнение аудитории
         System.out.println(starts);                                 //покажем рассчитанный график занятий
     }
+
+
 
     List<Event> calcStartTimes(Event[] events, int from, int to) {
         //events - события которые нужно распределить в аудитории
@@ -51,9 +67,23 @@ public class B_Sheduler {
         result = new ArrayList<>();
         //ваше решение.
 
+     Arrays.sort(events, new newCompareTo());
 
+     int i=0;
+     //while (events[i].start<from) {i++;}
 
+     while (i<events.length-1)
+     {
+         result.add(events[i]);
 
+         int end=events[i++].stop;
+         while (events[i].start<end && events[i].stop<to)
+         {
+             i++;
+             if (events[i].stop == to && events[i].start<end )
+                 return result;
+         }
+     }
 
 
         return result;                        //вернем итог
