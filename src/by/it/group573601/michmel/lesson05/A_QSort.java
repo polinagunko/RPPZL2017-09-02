@@ -91,6 +91,7 @@ public class A_QSort {
         //подготовка к чтению данных
         Scanner scanner = new Scanner(stream);
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
+
         //число отрезков отсортированного массива
         int n = scanner.nextInt();
         int m = scanner.nextInt();

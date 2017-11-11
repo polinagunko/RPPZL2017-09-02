@@ -48,7 +48,6 @@ public class B_CountSort {
                 points[i++] = j + min;
             }
         }
-
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return points;
     }

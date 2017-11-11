@@ -128,7 +128,6 @@ public class C_QSortOptimized {
                 count++;
             else if (segment.value>m)
                 count--;
-
             else
                 result[segment.value] = count;
         }
