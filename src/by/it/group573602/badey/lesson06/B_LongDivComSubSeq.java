@@ -44,7 +44,15 @@ public class B_LongDivComSubSeq {
         }
         //тут реализуйте логику задачи методами динамического программирования (!!!)
         int result = 0;
-
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = 1;
+            for (int j = 0; j < i; j++)
+                if (m[i] % m[j] == 0 && arr[j] + 1 > arr[i]) {
+                    arr[i] = arr[j] + 1;
+                    result = Math.max(arr[i], result);
+                }
+        }
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
