@@ -46,16 +46,16 @@ public class A_BinaryFind {
         int[] result = new int[k];
         for (int i = 0; i < k; i++) {
             int value = scanner.nextInt();
-            int t = 0;
-            int v = n - 1;
+            int left = 0;
+            int right = n - 1;
             result[i] = -1;
-            while (t <= v) {
-                int h = (t + v) / 2;
+            while (left <= right) {
+                int h = (left + right) / 2;
                 if (a[h] == value) {
                     result[i] = h + 1;
                 }
-                if (a[h] > value) { v = h - 1;}
-                 else t = h + 1;
+                if (a[h] > value) { right = h - 1;}
+                 else left = h + 1;
             }
         }
 
