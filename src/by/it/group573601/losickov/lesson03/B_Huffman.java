@@ -2,7 +2,10 @@ package by.it.group573601.losickov.lesson03;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 // Lesson 3. B_Huffman.
 // Восстановите строку по её коду и беспрефиксному коду символов.
@@ -50,9 +53,31 @@ public class B_Huffman {
         Integer length = scanner.nextInt();
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! НАЧАЛО ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
         //тут запишите ваше решение
+        Map<Character,String> map = new TreeMap<>();
 
+        for (int i=0; i<count;i++)
+        {
+            Character Key = scanner.next().charAt(0);
+            String Value = scanner.next();
+            map.put(Key,Value);
 
+        }
+        String s=scanner.next();
 
+        StringBuilder code = new StringBuilder();
+
+        for (int i=0;i<length;i++)
+        {
+            code.append(s.charAt(i));
+            if (map.containsValue(code.toString())){
+                for (Map.Entry entry:map.entrySet()){
+                    if(code.toString().equals(entry.getValue())){
+                        result.append(entry.getKey());
+                    }
+                }
+                code.delete(0,code.length());
+            }
+        }
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! КОНЕЦ ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
         return result.toString(); //01001100100111

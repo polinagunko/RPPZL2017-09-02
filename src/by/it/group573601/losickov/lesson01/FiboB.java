@@ -27,7 +27,7 @@ public class FiboB {
         //здесь нужно реализовать вариант с временем O(n) и памятью O(n)
         BigInteger myMASS[]=new BigInteger[n+1];
         myMASS[0]= BigInteger.ZERO;
-        myMASS[1]=BigInteger.ONE;
+        myMASS[1]= BigInteger.ONE;
         for (int i = 2;i <= n;i++)
             myMASS[i]=myMASS[i-1].add(myMASS[i-2]);
         return myMASS[n];
