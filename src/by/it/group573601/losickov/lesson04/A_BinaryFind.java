@@ -41,11 +41,13 @@ public class A_BinaryFind {
             a[i - 1] = scanner.nextInt();
         }
 
+
         //размер массива индексов
         int k = scanner.nextInt();
         int[] result = new int[k];
         for (int i = 0; i < k; i++) {
             int value = scanner.nextInt();
+
             int left = 0;
             int right = n - 1;
             result[i] = -1;
