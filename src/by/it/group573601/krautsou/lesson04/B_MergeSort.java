@@ -32,7 +32,6 @@ public class B_MergeSort {
         int[] a = new int[n];
         for (int i = 0; i < n; i++) {
             a[i] = scanner.nextInt();
-            System.out.println(a[i]);
         }
         mergeSort(a, 0, a.length - 1);
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
@@ -45,12 +44,7 @@ public class B_MergeSort {
             return;
         }
         int mid = l + (r - l) / 2;
-        mergeSort(array, l, mid);
-        mergeSort(array, mid + 1, r);
-
         int[] tmpBuf = Arrays.copyOf(array, array.length);
-
-        System.arraycopy(array, l, tmpBuf, l, r + 1 - l);
 
         int i = l, j = mid + 1;
         for (int k = l; k <= r; k++) {
