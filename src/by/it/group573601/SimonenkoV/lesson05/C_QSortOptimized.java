@@ -3,6 +3,7 @@ package by.it.group573601.SimonenkoV.lesson05;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Random;
 import java.util.Scanner;
 
 /*
@@ -33,7 +34,7 @@ import java.util.Scanner;
 public class C_QSortOptimized {
 
     //отрезок
-    private class Segment  implements Comparable{
+    private class Segment  implements Comparable<Segment>{
         int start;
         int stop;
 
@@ -43,12 +44,53 @@ public class C_QSortOptimized {
         }
 
         @Override
-        public int compareTo(Object o) {
-            //подумайте, что должен возвращать компаратор отрезков
-            return 0;
+        public int compareTo(Segment o) {
+            if((start - o.start) != 0){
+                return start - o.start;
+            }
+            else
+                return stop - o.stop;
         }
     }
 
+    private void swap(Segment[] a, int i, int j){
+        Segment t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
+
+    private int[] division(Segment[] a, int low, int high){
+        Random rand = new Random();
+        int ran = low + rand.nextInt(high - low);
+        int pivot;
+        pivot= low;
+        int pivEnd ;
+        pivEnd = low;
+        swap(a, pivot, ran);
+        for(int i = low + 1; i <= high; i++){
+            if(a[i].compareTo(a[pivot]) <= 0){
+                pivEnd+=1;
+                swap(a, i ,pivEnd);
+                if(a[pivEnd].compareTo(a[pivot]) < 0){
+                    swap(a, pivEnd, pivot);
+                    pivot=pivot+1;
+                }
+            }
+        }
+        return new int[]{pivot, pivEnd};
+    }
+
+    private void quickSort3(Segment[] a, int low, int high){
+        while(low < high){
+            int[] middle = division(a, low, high);
+            quickSort3(a, low, middle[0] - 1);
+            low = middle[1] + 1;
+        }
+    }
+
+    private void quickSort3(Segment[] a){
+        quickSort3(a, 0, a.length-1);
+    }
 
     int[] getAccessory2(InputStream stream) throws FileNotFoundException {
         //подготовка к чтению данных
@@ -56,24 +98,41 @@ public class C_QSortOptimized {
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         //число отрезков отсортированного массива
         int n = scanner.nextInt();
-        Segment[] segments=new Segment[n];
-        //число точек
         int m = scanner.nextInt();
-        int[] points=new int[m];
+        Segment[] segments=new Segment[n+n+m];
         int[] result=new int[m];
 
         //читаем сами отрезки
+        int index=0;
         for (int i = 0; i < n; i++) {
             //читаем начало и конец каждого отрезка
-            segments[i]=new Segment(scanner.nextInt(),scanner.nextInt());
+            int start = scanner.nextInt();
+            int stop = scanner.nextInt();
+            if(start > stop){
+                int tmp = start;
+                start = stop;
+                stop = tmp;
+            }
+            segments[index++]=new Segment(start, -1);
+            segments[index++] = new Segment(stop, m+1);
         }
         //читаем точки
-        for (int i = 0; i < n; i++) {
-            points[i]=scanner.nextInt();
+        for (int i = 0; i < m; i++) {
+            int x = scanner.nextInt();
+            segments[index++]=new Segment(x, i);
         }
-        //тут реализуйте логику задачи с применением быстрой сортировки
-        //в классе отрезка Segment реализуйте нужный для этой задачи компаратор
 
+        quickSort3(segments);
+        int segmentCount = 0;
+        for(Segment segment : segments){
+            if(segment.stop<0)
+                segmentCount++;
+            else if (segment.stop>m)
+                segmentCount--;
+
+            else
+                result[segment.stop] = segmentCount;
+        }
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
@@ -82,7 +141,7 @@ public class C_QSortOptimized {
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
-        InputStream stream = new FileInputStream(root + "by/it/a_khmelev/lesson05/dataC.txt");
+        InputStream stream = new FileInputStream(root + "by/it/group573601/SimonenkoV/lesson05/dataC.txt");
         C_QSortOptimized instance = new C_QSortOptimized();
         int[] result=instance.getAccessory2(stream);
         for (int index:result){
