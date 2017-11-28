@@ -3,6 +3,7 @@ package by.it.group573601.krautsou.lesson05;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Random;
 import java.util.Scanner;
 
 /*
@@ -32,23 +33,50 @@ import java.util.Scanner;
 
 public class C_QSortOptimized {
 
-    //отрезок
-    private class Segment implements Comparable {
-        int start;
-        int stop;
+    private class Segment implements Comparable<Segment> {
+        int n;
+        int k;
 
-        Segment(int start, int stop) {
-            this.start = start;
-            this.stop = stop;
+        private Segment(int n, int k) {
+            this.n = n;
+            this.k = k;
         }
-
         @Override
-        public int compareTo(Object o) {
-            //подумайте, что должен возвращать компаратор отрезков
-            return 0;
+        public int compareTo(Segment obj) {
+            if ((n - obj.n) != 0)
+                return n - obj.n;
+            else return k - obj.k;
         }
     }
 
+    public static Segment[] qSort(Segment n[], int left, int right) {
+        int l = left;
+        int r = right;
+        Random rand = new Random();
+        Segment x = n[l + rand.nextInt(r - l + 1)];
+        while (l <= r) {
+            while (n[l].compareTo(x) < 0) {
+                l++;
+            }
+            while (n[r].compareTo(x) > 0) {
+                r--;
+            }
+            if (l <= r) {
+                Segment t = n[l];
+                n[l] = n[r];
+                n[r] = t;
+                l++;
+                r--;
+            }
+        }
+        if (left < r) {
+            qSort(n, left, r);
+        }
+        if (l < right) {
+            qSort(n, l, right);
+        }
+        return n;
+    }
 
     int[] getAccessory2(InputStream stream) throws FileNotFoundException {
         //подготовка к чтению данных
@@ -56,24 +84,42 @@ public class C_QSortOptimized {
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         //число отрезков отсортированного массива
         int n = scanner.nextInt();
-        Segment[] segments = new Segment[n];
         //число точек
         int m = scanner.nextInt();
-        int[] points = new int[m];
         int[] result = new int[m];
+        Segment[] segmets = new Segment[n + n + m];
 
+        int index = 0;
         //читаем сами отрезки
         for (int i = 0; i < n; i++) {
             //читаем начало и конец каждого отрезка
-            segments[i] = new Segment(scanner.nextInt(), scanner.nextInt());
+            //segments[i]=new Segment(scanner.nextInt(),scanner.nextInt());
+            int start = scanner.nextInt();
+            int stop = scanner.nextInt();
+            if (start > stop) {
+                int tmp = start;
+                start = stop;
+                stop = tmp;
+            }
+            segmets[index++] = new Segment(start, -1);
+            segmets[index++] = new Segment(stop, m + 1);
         }
         //читаем точки
-        for (int i = 0; i < n; i++) {
-            points[i] = scanner.nextInt();
+        for (int i = 0; i < m; i++) {
+            int x = scanner.nextInt();
+            segmets[index++] = new Segment(x, i);
         }
         //тут реализуйте логику задачи с применением быстрой сортировки
         //в классе отрезка Segment реализуйте нужный для этой задачи компаратор
-
+        qSort(segmets, 0, segmets.length - 1);
+        int s = 0;
+        for (Segment segment : segmets) {
+            if (segment.k < 0)
+                s++;
+            else if (segment.k > m)
+                s--;
+            else result[segment.k] = s;
+        }
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
