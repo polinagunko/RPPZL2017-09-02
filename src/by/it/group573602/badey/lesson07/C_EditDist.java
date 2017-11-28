@@ -51,9 +51,66 @@ public class C_EditDist {
 
     String getDistanceEdinting(String one, String two) {
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-
-
         String result = "";
+        char[] arr = one.toCharArray();
+        char[] arr2 = two.toCharArray();
+        int[][] dist = new int[arr.length + 1][arr2.length + 1];
+        for (int i = 0; i < arr.length + 1; i++)
+            for (int j = 0; j < arr2.length + 1; j++)
+                dist[i][j] = Integer.MAX_VALUE;
+        for (int i = 0; i < arr.length + 1; i++)
+            for (int j = 0; j < arr2.length + 1; j++) {
+                if (i == 0)
+                    dist[i][j] = j;
+                else if (j == 0)
+                    dist[i][j] = i;
+                else {
+                    int ins = dist[i][j - 1] + 1;
+                    int del = dist[i - 1][j] + 1;
+                    int sub = dist[i - 1][j - 1] +
+                            ((arr[i - 1] == arr2[j - 1]) ? 0 : 1);
+                    dist[i][j] = Math.min(ins, Math.min(del, sub));
+                }
+            }
+
+        int i = arr.length;
+        int j = arr2.length;
+        while (i>0 || j>0){
+            char oper='#';
+            int elem = dist[i][j];
+            if(i>0 && j>0 &&dist[i-1][j-1] < elem){
+                elem = dist[i-1][j-1];
+                oper='~';
+            }
+            if(i>0 && dist[i-1][j]<elem){
+                elem=dist[i-1][j];
+                oper='-';
+            }
+            if(j>0 && dist[i][j-1]<elem){
+                //elem = dist[i][j-1];
+                oper='+';
+            }
+            switch (oper){
+                case '#':
+                    i--;
+                    j--;
+                    result = String.format("%s,%s", oper, result);
+                    break;
+                case '~':
+                    i--;
+                    j--;
+                    result = String.format("%s%s,%s", oper, arr2[j], result);
+                    break;
+                case '-':
+                    i--;
+                    result = String.format("%s%s,%s", oper, arr2[i], result);
+                    break;
+                case '+':
+                    j--;
+                    result = String.format("%s%s,%s", oper, arr2[j], result);
+                    break;
+            }
+        }
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
@@ -61,7 +118,7 @@ public class C_EditDist {
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
-        InputStream stream = new FileInputStream(root + "by/it/akhmelev/lesson08/dataABC.txt");
+        InputStream stream = new FileInputStream(root + "by/it/a_khmelev/lesson07/dataABC.txt");
         C_EditDist instance = new C_EditDist();
         Scanner scanner = new Scanner(stream);
         System.out.println(instance.getDistanceEdinting(scanner.nextLine(),scanner.nextLine()));
