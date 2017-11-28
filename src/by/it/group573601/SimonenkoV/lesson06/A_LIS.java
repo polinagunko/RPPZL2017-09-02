@@ -3,7 +3,10 @@ package by.it.group573601.SimonenkoV.lesson06;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
+
+import static sun.util.logging.LoggingSupport.log;
 
 /*
 Задача на программирование: наибольшая возрастающая подпоследовательность
@@ -38,24 +41,38 @@ public class A_LIS {
         Scanner scanner = new Scanner(stream);
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         //общая длина последовательности
-        int n = scanner.nextInt();
-        int[] m = new int[n];
+        int length = scanner.nextInt();
+        int[] massive;
+        massive =new int[length];
         //читаем всю последовательность
-        for (int i = 0; i < n; i++) {
-            m[i] = scanner.nextInt();
+        for (int i = 0; i < length; i++) {
+            massive[i] = scanner.nextInt();
         }
-        //тут реализуйте логику задачи методами динамического программирования (!!!)
-        int result = 0;
 
+        //тут реализуйте логику задачи методами динамического программирования (!!!)
+
+        int[] buff = new int[length];
+        for (int i = 0; i < length; i++) {
+            buff[i] = 1;
+            for (int j = 0; j < i; j++)
+                if (massive[j] < massive[i] && buff[j] + 1 > buff[i])
+                    buff[i]+=1;
+        }
+
+        int ans = 0;
+        for (int i = 0; i < length; i++) {
+            ans = Math.max(ans, buff[i]);
+        }
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
+        return ans;
     }
+
 
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
-        InputStream stream = new FileInputStream(root + "by/it/a_khmelov/lesson06/dataA.txt");
+        InputStream stream = new FileInputStream(root + "by/it/group573601/SimonenkoV/lesson06/dataA.txt");
         A_LIS instance = new A_LIS();
         int result = instance.getSeqSize(stream);
         System.out.print(result);
