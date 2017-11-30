@@ -1,10 +1,10 @@
 package by.it.group573601.losickov.lesson05;
 
-import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Scanner;
+
 
 /*
 Видеорегистраторы и площадь.
@@ -38,25 +38,53 @@ import java.util.Scanner;
 
 public class A_QSort {
 
-    //отрезок
-    private class Segment  implements Comparable{
+    private class Segment  implements Comparable<Segment>{
         int start;
         int stop;
 
-        Segment(int start, int stop){
+        private Segment(int start, int stop){
             this.start = start;
             this.stop = stop;
-            //тут вообще-то лучше доделать конструктор на случай если
-            //концы отрезков придут в обратном порядке
         }
 
         @Override
-        public int compareTo(Object o) {
-            //подумайте, что должен возвращать компаратор отрезков
-            return 0;
+        public int compareTo(Segment o) {
+            if((start - o.start) != 0){
+                return start - o.start;
+            }
+            else
+                return stop - o.stop;
         }
     }
 
+    private int partition(Segment[] a, int left, int right){
+        Segment x = a[left];
+        int m = left;
+        for(int i = left+1; i <= right; i++){
+            if(a[i].compareTo(x)<=0){
+                m++;
+                Segment temp = a[i];
+                a[i] = a[m];
+                a[m] = temp;
+            }
+        }
+        Segment temp = a[left];
+        a[left] = a[m];
+        a[m] = temp;
+        return m;
+    }
+
+    private void quickSort(Segment[] a, int left, int right){
+        if(left<right){
+            int m = partition(a, left, right);
+            quickSort(a, left, m-1);
+            quickSort(a, m+1, right);
+        }
+    }
+
+    private void quickSort(Segment[] a){
+        quickSort(a, 0, a.length-1);
+    }
 
     int[] getAccessory(InputStream stream) throws FileNotFoundException {
         //подготовка к чтению данных
@@ -64,43 +92,42 @@ public class A_QSort {
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         //число отрезков отсортированного массива
         int n = scanner.nextInt();
-        Segment[] segments=new Segment[n];
-        //число точек
         int m = scanner.nextInt();
-        int[] points=new int[m];
+        Segment[] segments=new Segment[n+n+m];
         int[] result=new int[m];
 
         //читаем сами отрезки
-        int index =0;
+        int index=0;
         for (int i = 0; i < n; i++) {
             //читаем начало и конец каждого отрезка
             int start = scanner.nextInt();
             int stop = scanner.nextInt();
-            if(start>stop){
-                int temp = start;
-                start=stop;
-                stop=temp;
+            if(start > stop){
+                int tmp = start;
+                start = stop;
+                stop = tmp;
             }
-            points[index++]=new Point(start,-1);
-            points[index++]=new Point(stop,m+1);
+            segments[index++]=new Segment(start, -1);
+            segments[index++] = new Segment(stop, m+1);
         }
         //читаем точки
         for (int i = 0; i < m; i++) {
-            int x=scanner.nextInt();
-            points[index++]=new Point(x,i);
+            int x = scanner.nextInt();
+            segments[index++]=new Segment(x, i);
         }
-        //тут реализуйте логику задачи с применением быстрой сортировки
-        //в классе отрезка Segment реализуйте нужный для этой задачи компаратор
-        qsort(points);
-        int segmentcount = 0;
-        for (Point point:points){
-            if (point.index<0)
-                segmentcount++;
-            else if(point.index>m)
-                segmentcount--;
+
+        quickSort(segments);
+        int segmentCount = 0;
+        for(Segment segment : segments){
+            if(segment.stop<0)
+                segmentCount++;
+            else if (segment.stop>m)
+                segmentCount--;
+
             else
-                result[point.index]=segmentcount;
+                result[segment.stop] = segmentCount;
         }
+
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
