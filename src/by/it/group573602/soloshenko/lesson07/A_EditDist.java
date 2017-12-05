@@ -3,6 +3,8 @@ package by.it.group573602.soloshenko.lesson07;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -38,16 +40,47 @@ import java.util.Scanner;
 */
 
 public class A_EditDist {
+    String s_1;
+    String s_2;
+    int[][] D;
 
+    private int function(int i, int j) {
+        if (D[i][j] == Integer.MAX_VALUE) {
+            if (i == 0) {
+                D[i][j] = j;
+            } else if (j == 0) {
+                D[i][j] = i;
+            } else {
+                int diff;
+                if (s_1.charAt(i - 1) == s_2.charAt(j - 1))
+                    diff = 0;
+                else diff = 1;
+                int ins = function(i, j - 1) + 1;
+                int del = function(i - 1, j) + 1;
+                int sub = function(i - 1, j - 1) + diff;
+                D[i][j] = Math.min(Math.min(ins, del), sub);
+            }
+        }
+        return D[i][j];
+    }
 
     int getDistanceEdinting(String one, String two) {
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-        int result = 0;
-        //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
+        s_1 = one;
+        s_2 = two;
+        System.out.println("one=" + one);
+        System.out.println("two=" + two);
+        int m = s_1.length();
+        int n = s_2.length();
+        D = new int[m + 1][n + 1];
+        for (int[] res : D)
+            Arrays.fill(res, Integer.MAX_VALUE);
+        int i = m;
+        int j = n;
+        return function(i, j);
     }
+
+    //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
 
 
     public static void main(String[] args) throws FileNotFoundException {
@@ -55,9 +88,9 @@ public class A_EditDist {
         InputStream stream = new FileInputStream(root + "by/it/group573602/soloshenko/lesson07/dataABC.txt");
         A_EditDist instance = new A_EditDist();
         Scanner scanner = new Scanner(stream);
-        System.out.println(instance.getDistanceEdinting(scanner.nextLine(),scanner.nextLine()));
-        System.out.println(instance.getDistanceEdinting(scanner.nextLine(),scanner.nextLine()));
-        System.out.println(instance.getDistanceEdinting(scanner.nextLine(),scanner.nextLine()));
+        System.out.println(instance.getDistanceEdinting(scanner.nextLine(), scanner.nextLine()));
+        System.out.println(instance.getDistanceEdinting(scanner.nextLine(), scanner.nextLine()));
+        System.out.println(instance.getDistanceEdinting(scanner.nextLine(), scanner.nextLine()));
     }
 }
 
