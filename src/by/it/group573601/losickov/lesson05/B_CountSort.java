@@ -1,5 +1,7 @@
 package by.it.group573601.losickov.lesson05;
 
+
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -25,12 +27,25 @@ public class B_CountSort {
         //размер массива
         int n = scanner.nextInt();
         int[] points=new int[n];
-
+        int min, max= min = points[0];
         //читаем точки
         for (int i = 0; i < n; i++) {
             points[i]=scanner.nextInt();
+            //находим максимальное и минимальное значение
+            if(min>points[i]) min=points[i];
+            if(max<points[i] )max=points[i];
         }
         //тут реализуйте логику задачи с применением сортировки подсчетом
+        int [] count = new int[max-min+1];
+        for (int i=0; i<n; i++)
+        {
+            count[points[i]-min]++;
+        }
+        int index=0;
+        for(int k=0; k<count.length;k++)
+        {
+            for(int j=0; j<count[k];j++){points[index++]=k+min;}
+        }
 
 
 
