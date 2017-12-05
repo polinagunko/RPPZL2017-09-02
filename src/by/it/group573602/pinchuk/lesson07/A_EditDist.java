@@ -3,6 +3,7 @@ package by.it.group573602.pinchuk.lesson07;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -39,15 +40,44 @@ import java.util.Scanner;
 
 public class A_EditDist {
 
+    private char[] array;
+    private char[] array2;
+    private int[][] distance;
+
+    private int editDistanceTopDown(int i, int j){
+        if(distance[i][j] == -1){
+            if(i==0)
+                distance[i][j] = j;
+            else if(j==0)
+                distance[i][j] = i;
+            else{
+                int ins = editDistanceTopDown(i, j-1) + 1;
+                int del = editDistanceTopDown(i-1, j) + 1;
+                int sub = editDistanceTopDown(i-1, j-1) +
+                        ((array[i-1] == array2[j-1]) ? 0:1);
+                distance[i][j] = Math.min(ins, Math.min(del, sub));
+            }
+        }
+        return distance[i][j];
+    }
 
     int getDistanceEdinting(String one, String two) {
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
 
+        int result;
+        array = one.toCharArray();
+        array2 = two.toCharArray();
+        int n = array.length+1;
+        int m = array2.length+1;
+        distance = new int[n][m];
+        for(int[] row:distance)
+            Arrays.fill(row,-1);
+        result = editDistanceTopDown(array.length, array2.length);
 
-        int result = 0;
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
+
 
 
     public static void main(String[] args) throws FileNotFoundException {
