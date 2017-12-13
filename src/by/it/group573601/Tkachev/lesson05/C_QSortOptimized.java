@@ -3,6 +3,7 @@ package by.it.group573601.Tkachev.lesson05;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Random;
 import java.util.Scanner;
 
 /*
@@ -33,7 +34,7 @@ import java.util.Scanner;
 public class C_QSortOptimized {
 
     //отрезок
-    private class Segment  implements Comparable{
+    private class Segment implements Comparable<Segment>{
         int start;
         int stop;
 
@@ -43,37 +44,123 @@ public class C_QSortOptimized {
         }
 
         @Override
-        public int compareTo(Object o) {
-            //подумайте, что должен возвращать компаратор отрезков
-            return 0;
+        public int compareTo(Segment obj) {
+            if((start - obj.start) != 0){
+                return start - obj.start;
+            }
+
+            else {
+                return stop - obj.stop;
+            }
         }
     }
 
+    protected void swap(Segment[] a, int i, int j){
+        Segment t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
 
-    int[] getAccessory2(InputStream stream) throws FileNotFoundException {
+    protected int[] division(Segment[] a, int low, int high){
+
+        Random rand = new Random();
+        int ran = low + rand.nextInt(high - low);
+
+        int Priv;
+        Priv = low;
+
+        int PivEnd;
+        PivEnd = low;
+
+        swap(a, Priv, ran);
+
+        for(int I = low + 1; I <= high; I++)
+        {
+            if(a[I].compareTo(a[Priv]) <= 0)
+            {
+                PivEnd += 1;
+                swap(a, I, PivEnd);
+
+                if(a[PivEnd].compareTo(a[Priv]) < 0)
+                {
+                    swap(a, PivEnd, Priv);
+                    Priv = Priv + 1;
+                }
+            }
+        }
+        int res[] = new int[]{Priv, PivEnd};
+        return res;
+    }
+
+    protected void quickSortC(Segment[] a, int low, int high){
+        while(low < high)
+        {
+            int[] middle = division(a, low, high);
+            quickSortC(a, low, middle[0] - 1);
+            low = middle[1] + 1;
+        }
+    }
+
+    protected void quickSortC(Segment[] a)
+    {
+        quickSortC(a, 0, a.length-1);
+    }
+
+
+    protected int[] getAccessory2(InputStream stream) throws FileNotFoundException {
+
         //подготовка к чтению данных
         Scanner scanner = new Scanner(stream);
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
+
         //число отрезков отсортированного массива
         int n = scanner.nextInt();
-        Segment[] segments=new Segment[n];
-        //число точек
         int m = scanner.nextInt();
-        int[] points=new int[m];
-        int[] result=new int[m];
+
+        Segment[] segments = new Segment[n+n+m];
+        int[] result = new int[m];
 
         //читаем сами отрезки
+        int index = 0;
         for (int i = 0; i < n; i++) {
-            //читаем начало и конец каждого отрезка
-            segments[i]=new Segment(scanner.nextInt(),scanner.nextInt());
-        }
-        //читаем точки
-        for (int i = 0; i < n; i++) {
-            points[i]=scanner.nextInt();
-        }
-        //тут реализуйте логику задачи с применением быстрой сортировки
-        //в классе отрезка Segment реализуйте нужный для этой задачи компаратор
 
+            //читаем начало и конец каждого отрезка
+            int start = scanner.nextInt();
+            int stop = scanner.nextInt();
+
+            if(start > stop)
+            {
+                int tmp = start;
+                start = stop;
+                stop = tmp;
+            }
+
+            segments[index++]=new Segment(start, -1);
+            segments[index++] = new Segment(stop, m+1);
+        }
+
+        //читаем точки
+        for (int i = 0; i < m; i++) {
+            int x = scanner.nextInt();
+            segments[index++] = new Segment(x, i);
+        }
+
+        quickSortC(segments);
+        int segmentCount = 0;
+
+        for(Segment eachSegment : segments)
+        {
+            if(eachSegment.stop < 0) {
+                segmentCount++;
+            }
+            else if (eachSegment.stop > m) {
+                segmentCount--;
+            }
+
+            else {
+                result[eachSegment.stop] = segmentCount;
+            }
+        }
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
