@@ -36,10 +36,26 @@ public class B_Knapsack {
         int gold[]=new int[n];
         for (int i = 0; i < n; i++) {
             gold[i]=scanner.nextInt();
+            System.out.println("Вес: "+gold[i]);
+        }
+        System.out.println("Вместимость "+w);
+        System.out.println("Варианты "+n);
+        int result = 0;
+        int[][] mas = new int[n+1][w+1];
+        for(int i=1; i<=n;i++){
+            int wi=gold[i-1];
+            int ci=gold[i-1];
+            for(int j=0; j<=w;j++){
+                mas[i][j]=mas[i-1][j];
+                if(wi<=j){
+                    int wight=mas[i-1][j-wi]+ci;
+                    mas[i][j]=Math.max(mas[i][w],wight);
+                    result=mas[n][w];
+                }
+            }
         }
 
 
-        int result = 0;
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
