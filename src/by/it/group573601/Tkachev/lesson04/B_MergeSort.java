@@ -21,14 +21,45 @@ Sample Output:
 */
 public class B_MergeSort {
 
+    protected int[] mergeSort(int[] N) {
+        if (N.length < 2)
+            return N;
 
-    int[] getMergeSort(InputStream stream) throws FileNotFoundException {
+        int[] numLeft = new int[N.length / 2];
+
+        int[] numRight = new int[N.length - numLeft.length];
+
+        System.arraycopy(N, 0, numLeft, 0, numLeft.length);
+        System.arraycopy(N, numLeft.length, numRight, 0, numRight.length);
+
+        numLeft = mergeSort(numLeft);
+        numRight = mergeSort(numRight);
+
+        return merge(numLeft, numRight);
+    }
+
+    protected int[] merge(int[] N1, int[] N2) {
+        int i = 0;
+        int j = 0;
+        int[] NewN = new int[N1.length + N2.length];
+        for (int K = 0; K < NewN.length; K++) {
+            if (j == N2.length || (i < N1.length && N1[i] <= N2[j])) {
+                NewN[K] = N1[i++];
+            } else {
+                NewN[K] = N2[j++];
+            }
+        }
+        return NewN;
+    }
+
+    protected int[] getMergeSort(InputStream stream) throws FileNotFoundException {
         //подготовка к чтению данных
         Scanner scanner = new Scanner(stream);
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
 
         //размер массива
         int n = scanner.nextInt();
+
         //сам массива
         int[] a = new int[n];
         for (int i = 0; i < n; i++) {
@@ -36,12 +67,10 @@ public class B_MergeSort {
             System.out.println(a[i]);
 
         }
-
         // тут ваше решение (реализуйте сортировку слиянием)
         // https://ru.wikipedia.org/wiki/Сортировка_слиянием
 
-        //a = mergeSort(a, 0, a.length - 1);
-
+        a = mergeSort(a);
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return a;
     }
@@ -57,6 +86,4 @@ public class B_MergeSort {
             System.out.print(index + " ");
         }
     }
-
-
 }
