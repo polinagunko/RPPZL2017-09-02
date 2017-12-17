@@ -43,7 +43,27 @@ public class C_Stairs {
         }
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         int result = 0;
+        System.out.println("Число ступенек "+n);
+        int[] mas = new int[n];
+        for(int i=0;i<n;i++){
+            if(i==0){
 
+                mas[0]=stairs[0];
+                result=mas[n-1];
+
+            }
+            if(i==1){
+                mas[i]=Math.max(mas[0]+stairs[i],stairs[i]);
+                result=mas[n-1];
+
+            }
+            if(i>1){
+                mas[i]=Math.max(mas[i-1]+stairs[i],mas[i-2]+stairs[i]);
+                result=mas[n-1];
+
+            }
+
+        }
 
 
 
