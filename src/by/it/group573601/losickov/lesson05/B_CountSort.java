@@ -27,26 +27,26 @@ public class B_CountSort {
         //размер массива
         int n = scanner.nextInt();
         int[] points=new int[n];
-        int min, max= min = points[0];
         //читаем точки
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
         for (int i = 0; i < n; i++) {
             points[i]=scanner.nextInt();
-            //находим максимальное и минимальное значение
-            if(min>points[i]) min=points[i];
-            if(max<points[i] )max=points[i];
+            if(min>points[i]) min = points[i];
+            if(max<points[i]) max = points[i];
         }
         //тут реализуйте логику задачи с применением сортировки подсчетом
-        int [] count = new int[max-min+1];
-        for (int i=0; i<n; i++)
-        {
-            count[points[i]-min]++;
-        }
-        int index=0;
-        for(int k=0; k<count.length;k++)
-        {
-            for(int j=0; j<count[k];j++){points[index++]=k+min;}
-        }
 
+        int[] count = new int[max-min+1];
+        for(int i = 0; i < n; i++){
+            count[-min+points[i]]++;
+        }
+        int i = 0;
+        for(int j = 0; j < count.length; j++) {
+            for (int k = 0; k < count[j]; k++) {
+                points[i++] = j + min;
+            }
+        }
 
 
 
