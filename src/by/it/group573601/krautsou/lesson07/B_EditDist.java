@@ -40,19 +40,39 @@ import java.util.Scanner;
 public class B_EditDist {
 
 
+
     int getDistanceEdinting(String one, String two) {
-        //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
 
+        String str1 = one;
+        String str2 = two;
+        int[][] editDist = new int[str1.length() + 1][str2.length() + 1];
 
-        int result = 0;
-        //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
+        for (int i = 0; i <= str1.length(); i++) {
+            editDist[i][0] = i;
+        }
+        for (int j = 0; j <= str2.length(); j++) {
+            editDist[0][j] = j;
+        }
+
+        for (int i = 1; i <= str1.length(); i++) {
+            for (int j = 1; j <= str2.length(); j++) {
+
+                int discrep = (str1.charAt(i - 1) == str2.charAt(j - 1)) ? 0 : 1;
+                int ins = editDist[i - 1][j] + 1;
+                int del = editDist[i][j - 1] + 1;
+                int rep = editDist[i - 1][j - 1] + discrep;
+                editDist[i][j] = Math.min(Math.min(ins, del), rep);
+
+            }
+        }
+
+        return editDist[str1.length()][str2.length()];
     }
 
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
-        InputStream stream = new FileInputStream(root + "by/it/akhmelev/lesson08/dataABC.txt");
+        InputStream stream = new FileInputStream(root + "by/it/a_khmelev/lesson07/dataABC.txt");
         B_EditDist instance = new B_EditDist();
         Scanner scanner = new Scanner(stream);
         System.out.println(instance.getDistanceEdinting(scanner.nextLine(), scanner.nextLine()));

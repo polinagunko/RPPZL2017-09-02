@@ -19,15 +19,9 @@ Sample Output 1:
 3
 
 Sample Input 2:
-2
-2 -1
-Sample Output 2:
-1
-
-Sample Input 3:
 3
 -1 2 1
-Sample Output 3:
+Sample Output 2:
 3
 
 */
@@ -42,17 +36,24 @@ public class C_Stairs {
             stairs[i] = scanner.nextInt();
         }
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        int result = 0;
-
-
+        int profit[] = new int[n];
+        for (int i = 0; i < n; i++) {
+            if (i == 0) {
+                profit[i] = stairs[i];
+            } else if (i == 1) {
+                profit[i] = Math.max(stairs[i], profit[i - 1] + stairs[i]);
+            } else {
+                profit[i] = Math.max(profit[i - 2] + stairs[i], profit[i - 1] + stairs[i]);
+            }
+        }
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
+        return profit[n - 1];
     }
 
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
-        InputStream stream = new FileInputStream(root + "by/it/a_khmelev/lesson09/dataC.txt");
+        InputStream stream = new FileInputStream(root + "by/it/group573601/krautsou/lesson09/dataC.txt");
         C_Stairs instance = new C_Stairs();
         int res = instance.getMaxSum(stream);
         System.out.println(res);

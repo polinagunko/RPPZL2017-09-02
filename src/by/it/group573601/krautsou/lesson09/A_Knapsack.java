@@ -44,17 +44,21 @@ public class A_Knapsack {
         for (int i = 0; i < n; i++) {
             gold[i] = scanner.nextInt();
         }
-
-
-        int result = 0;
+        int[] filledBag = new int[w + 1];
+        for (int i = 1; i < filledBag.length; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i < gold[j]) continue;
+                filledBag[i] = Math.max(gold[j], filledBag[i - gold[j]] + gold[j]);
+            }
+        }
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
+        return filledBag[w];
     }
 
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
-        InputStream stream = new FileInputStream(root + "by/it/a_khmelev/lesson09/dataA.txt");
+        InputStream stream = new FileInputStream(root + "by/it/group573601/krautsou/lesson09/dataA.txt");
         A_Knapsack instance = new A_Knapsack();
         int res = instance.getMaxWeight(stream);
         System.out.println(res);
