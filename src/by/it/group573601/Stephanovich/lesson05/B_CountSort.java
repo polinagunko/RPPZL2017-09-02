@@ -8,9 +8,7 @@ import java.util.Scanner;
 /*
 Первая строка содержит число 1<=n<=10000, вторая - n натуральных чисел, не превышающих 10.
 Выведите упорядоченную по неубыванию последовательность этих чисел.
-
 При сортировке реализуйте метод со сложностью O(n)
-
 Пример: https://karussell.wordpress.com/2010/03/01/fast-integer-sorting-algorithm-on/
 Вольный перевод: http://programador.ru/sorting-positive-int-linear-time/
 */
@@ -27,12 +25,30 @@ public class B_CountSort {
         int[] points=new int[n];
 
         //читаем точки
-        for (int i = 0; i < n; i++) {
+        int min=Integer.MAX_VALUE, max=Integer.MIN_VALUE;
+        for (int i = 0; i < n; i++)
+        {
             points[i]=scanner.nextInt();
+            if(min>points[i])
+            {
+                min=points[i];
+            }
+            if(max<points[i])
+            {
+                max=points[i];
+            }
         }
         //тут реализуйте логику задачи с применением сортировки подсчетом
 
-
+        int []count=new int[max-min+1];
+        for(int i=0; i<n; i++)
+            count[points[i]-min]++;
+        int i=0;
+        for(int j=0; j<count.length; j++)
+        {
+            for(int k=0; k<count[j]; k++)
+                points[i++]=j+min;
+        }
 
 
 
