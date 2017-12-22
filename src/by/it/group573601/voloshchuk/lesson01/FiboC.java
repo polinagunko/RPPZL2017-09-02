@@ -22,25 +22,22 @@ public class FiboC {
     }
 
     long fasterC(long n, int m) {
-        long array[]=new long[6*m];
-        array[0]=0;
-        array[1]=1;
-        int i=2;
-        long period=1;
+        long mass[];
+        mass=new long[6*m];
+        mass[0]=0;
+        mass[1]=1;
+        int k=2;
+        long age=1;
         do{
-            array[i]=(array[i-1]+array[i-2])%m;
-            period++;
-            if(array[i] == 1 && array[i-1] == 0){
+            mass[k]=(mass[k-1]+mass[k-2])%m;
+            age++;
+            if(mass[k]==1&&mass[k-1]==0){
                 break;
-            }
-            i++;
-        }while (i<n);
-        int val=(int)(n%period);
-        return array[val];
-        //решение практически невозможно найти интуитивно
-        //вам потребуется дополнительный поиск информации
-        //см. период Пизано
-        //return 0L;
+                }
+                k++;
+        }while (k<n);
+        int temp=(int)(n%age);
+        return mass[temp];
     }
 
 
