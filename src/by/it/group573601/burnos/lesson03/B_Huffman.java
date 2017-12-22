@@ -53,7 +53,8 @@ public class B_Huffman {
         //тут запишите ваше решение
         Map<Character, String> codes = new TreeMap<>();
 
-        for (int i = 0; i < count; i++){
+        for (int i = 0; i < count; i++)
+        {
             Character key = scanner.next().charAt(0);
             String value = scanner.next();
             codes.put(key,value);
