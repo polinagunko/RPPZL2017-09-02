@@ -30,7 +30,7 @@ public class FiboC {
         ArrayList<Long> arry = new ArrayList<>();
         arry.add(0L);
         arry.add(1L);
-        int i =2;
+        int i = 2;
         while(i < m*6)
         {
             arry.add((arry.get(i-1) + arry.get(i-2))%m);
