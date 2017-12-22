@@ -42,7 +42,7 @@ import java.util.TreeMap;
 //        Sample Output 2:
 //        abacabad
 
-public class B_Huffman {
+ class B_Huffman {
 
     String decode(File file) throws FileNotFoundException {
         StringBuilder result=new StringBuilder();
