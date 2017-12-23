@@ -40,15 +40,16 @@ public class C_GetInversions {
         Scanner scanner = new Scanner(stream);
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!
         //размер массива
+        //размер массива
         int n = scanner.nextInt();
         //сам массив
         int[] a = new int[n];
         for (int i = 0; i < n; i++) {
             a[i] = scanner.nextInt();
         }
-        int result = 0;
+        int res = 0;
         //!!!!!!!!!!!!!!!!!!!!!!!!     тут ваше решение   !!!!!!!!!!!!!!!!!!!!!!!!
-
+        res=inversCount(a,0, a.length-1);
 
 
 
@@ -58,7 +59,28 @@ public class C_GetInversions {
 
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
+        return res;
+    }
+
+    int inversCount(int[] array, int start, int end){
+        if(start>=end)
+            return 0;
+        int mid=(start+end)/2;
+        int res=inversCount(array, start, mid);
+        res+=inversCount(array, mid+1, end);
+        int i=start, j=mid+1, k=1;
+        int[] buff=new int[array.length];
+        while(i<mid || j<end){
+            if(j==end || (i<mid && array[i]<array[j])){
+                buff[k++]=array[i++];}
+            else{
+                res+=mid-i;
+                if((mid-i)==0)
+                    res+=1;
+                buff[k++]=array[j++];
+            }
+        }
+        return res;
     }
 
 

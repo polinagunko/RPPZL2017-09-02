@@ -3,6 +3,7 @@ package by.it.group573602.mazhanov.lesson04;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -30,20 +31,43 @@ public class B_MergeSort {
         //размер массива
         int n = scanner.nextInt();
         //сам массива
-        int[] a = new int[n];
+        int[] res = new int[n];
         for (int i = 0; i < n; i++) {
-            a[i] = scanner.nextInt();
-            System.out.println(a[i]);
+            res[i] = scanner.nextInt();
+            System.out.print(res[i]);
 
         }
 
         // тут ваше решение (реализуйте сортировку слиянием)
         // https://ru.wikipedia.org/wiki/Сортировка_слиянием
-
-        //a = mergeSort(a, 0, a.length - 1);
-
+        res = mergeSort(res, 0, res.length - 1);
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return a;
+        return res;
+    }
+
+    private int[] mergeSort(int[] array, int start, int end){
+        if(start>=end)
+            return null;
+        int mid=start+(end-start)/2;
+        mergeSort(array, start, mid);
+        mergeSort(array,mid+1, end);
+
+
+        int[] buff= Arrays.copyOf(array,array.length);
+        int i=start;
+        int j=mid+1;
+
+        for(int k=start; k<=end; k++){
+            if(i>mid){
+                array[k]=buff[j++];}
+            else if(j>end){
+                array[k]=buff[i++];}
+            else if(buff[j]<buff[i]){
+                array[k]=buff[j++];}
+            else {
+                array[k]=buff[i++];}
+        }
+        return array;
     }
 
     public static void main(String[] args) throws FileNotFoundException {
