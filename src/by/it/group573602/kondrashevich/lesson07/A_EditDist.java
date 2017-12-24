@@ -3,6 +3,7 @@ package by.it.group573602.kondrashevich.lesson07;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -38,13 +39,37 @@ import java.util.Scanner;
 */
 
 public class A_EditDist {
+    private char[] arr;
+    private char[] arr2;
+    private int[][] dist;
 
+    private int editDistanceTopDown(int i, int j){
+        if(dist[i][j] == -1){
+            if(i==0)
+                dist[i][j] = j;
+            else if(j==0)
+                dist[i][j] = i;
+            else{
+                int ins = editDistanceTopDown(i, j-1) + 1;
+                int del = editDistanceTopDown(i-1, j) + 1;
+                int sub = editDistanceTopDown(i-1, j-1) +
+                        ((arr[i-1] == arr2[j-1]) ? 0:1);
+                dist[i][j] = Math.min(ins, Math.min(del, sub));
+            }
+        }
+
+        return dist[i][j];
+    }
 
     int getDistanceEdinting(String one, String two) {
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-        int result = 0;
+        int result;
+        arr = one.toCharArray();
+        arr2 = two.toCharArray();
+        dist = new int[arr.length + 1][arr2.length + 1];
+        for(int[] row:dist)
+            Arrays.fill(row,-1);
+        result = editDistanceTopDown(arr.length, arr2.length);
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
@@ -52,7 +77,7 @@ public class A_EditDist {
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
-        InputStream stream = new FileInputStream(root + "by/it/akhmelev/lesson08/dataABC.txt");
+        InputStream stream = new FileInputStream(root + "by/it/a_khmelev/lesson07/dataABC.txt");
         A_EditDist instance = new A_EditDist();
         Scanner scanner = new Scanner(stream);
         System.out.println(instance.getDistanceEdinting(scanner.nextLine(),scanner.nextLine()));
@@ -60,4 +85,3 @@ public class A_EditDist {
         System.out.println(instance.getDistanceEdinting(scanner.nextLine(),scanner.nextLine()));
     }
 }
-

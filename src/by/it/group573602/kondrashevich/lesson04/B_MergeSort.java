@@ -3,6 +3,7 @@ package by.it.group573602.kondrashevich.lesson04;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -39,11 +40,31 @@ public class B_MergeSort {
 
         // тут ваше решение (реализуйте сортировку слиянием)
         // https://ru.wikipedia.org/wiki/Сортировка_слиянием
-
-        //a = mergeSort(a, 0, a.length - 1);
-
+        a = mergeSort(a, 0, a.length - 1);
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return a;
+    }
+
+    private int[] mergeSort(int[] array, int start, int end){
+        if(start>=end)
+            return null;
+        int middle=start+(end-start)/2;
+        mergeSort(array, start, middle);
+        mergeSort(array,middle+1, end);
+
+        int[] buff= Arrays.copyOf(array,array.length);
+        int i=start, j=middle+1;
+        for(int k=start; k<=end; k++){
+            if(i>middle)
+                array[k]=buff[j++];
+            else if(j>end)
+                array[k]=buff[i++];
+            else if(buff[j]<buff[i])
+                array[k]=buff[j++];
+            else //else if(j>end) && else
+                array[k]=buff[i++];
+        }
+        return array;
     }
 
     public static void main(String[] args) throws FileNotFoundException {
@@ -57,6 +78,4 @@ public class B_MergeSort {
             System.out.print(index + " ");
         }
     }
-
-
 }
