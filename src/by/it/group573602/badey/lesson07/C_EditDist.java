@@ -103,7 +103,7 @@ public class C_EditDist {
                     break;
                 case '-':
                     i--;
-                    result = String.format("%s%s,%s", oper, arr2[i], result);
+                    result = String.format("%s%s,%s", oper, arr[i], result);
                     break;
                 case '+':
                     j--;
