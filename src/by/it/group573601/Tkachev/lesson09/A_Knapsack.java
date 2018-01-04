@@ -34,6 +34,24 @@ Sample Output 2:
 */
 
 public class A_Knapsack {
+    public int knapsackWithR(int weights[], int costs[], int W)
+    {
+        int size = weights.length;
+        int[] D = new int[W + 1];
+        D[0] = 0;
+        for (int w = 1; w <= W; w++)
+        {
+            D[w] = D[w-1];
+            for (int i = 0; i < size; i++)
+            {
+                if (weights[i] <= w)
+                {
+                    D[w] = Math.max(D[w], D[w - weights[i]] + costs[i]);
+                }
+            }
+        }
+        return D[W];
+    }
 
     int getMaxWeight(InputStream stream ) {
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
@@ -44,12 +62,15 @@ public class A_Knapsack {
         for (int i = 0; i < n; i++) {
             gold[i]=scanner.nextInt();
         }
+        int costs[] = new int[n];
+        for (int i = 0; i < n; i++) {
+            costs[i] = gold[i];
+        }
 
-
-        int result = 0;
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
+        return knapsackWithR(gold, costs, w);
     }
+
 
 
     public static void main(String[] args) throws FileNotFoundException {

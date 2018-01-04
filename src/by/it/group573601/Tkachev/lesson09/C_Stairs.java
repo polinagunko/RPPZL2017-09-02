@@ -33,22 +33,37 @@ Sample Output 3:
 */
 
 public class C_Stairs {
+    private int[] stairs;
 
     int getMaxSum(InputStream stream ) {
         Scanner scanner = new Scanner(stream);
-        int n=scanner.nextInt();
-        int stairs[]=new int[n];
+        int n = scanner.nextInt();
+        stairs = new int[n];
         for (int i = 0; i < n; i++) {
-            stairs[i]=scanner.nextInt();
+            stairs[i] = scanner.nextInt();
         }
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        int result = 0;
 
 
 
 
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
+        return currentSum(n - 1, 0);
+    }
+
+    private int currentSum(int step, int sum){
+        if (step == 1){
+            int mono_hop = currentSum(step - 1, sum + stairs[step]);
+            int double_hop = sum + stairs[step];
+            return Math.max(mono_hop, double_hop);
+        }
+        else if (step == 0){
+            return sum + stairs[step];
+        } else {
+            int mono_hop = currentSum(step - 1, sum + stairs[step]);
+            int double_hop = currentSum(step - 2, sum + stairs[step]);
+            return Math.max(mono_hop, double_hop);
+        }
     }
 
 

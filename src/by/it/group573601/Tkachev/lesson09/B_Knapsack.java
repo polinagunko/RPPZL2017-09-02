@@ -28,6 +28,22 @@ Sample Output:
 
 public class B_Knapsack {
 
+    int knapsackWithoutR(int weights[], int costs[], int W) {
+        int n = weights.length;
+        int D[][] = new int[W + 1][n + 1];
+        for (int j = 1; j <= n; j++) {
+            for (int w = 1; w <= W; w++) {
+                if (weights[j-1] <= w) {
+                    D[w][j] = Math.max(D[w][j - 1], D[w - weights[j-1]][j - 1] + costs[j-1]);
+                } else {
+                    D[w][j] = D[w][j - 1];
+                }
+            }
+        }
+
+        return D[W][n];
+    }
+
     int getMaxWeight(InputStream stream ) {
         //!!!!!!!!!!!!!!!!!!!!!!!!!     НАЧАЛО ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         Scanner scanner = new Scanner(stream);
@@ -39,9 +55,13 @@ public class B_Knapsack {
         }
 
 
-        int result = 0;
+        int costs[] = new int[n];
+        for (int i = 0; i < n; i++) {
+            costs[i] = gold[i];
+        }
+
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
-        return result;
+        return knapsackWithoutR( gold, costs, w);
     }
 
 
