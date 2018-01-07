@@ -1,5 +1,6 @@
 package by.it.group573602.bulka.lesson03;
 
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -121,22 +122,45 @@ public class A_Huffman {
 
         Map<Character, Integer> count = new HashMap<>();
         //1. переберем все символы по очереди и рассчитаем их частоту в Map count
-            //для каждого символа добавим 1 если его в карте еще нет или инкремент если есть.
+        //для каждого символа добавим 1 если его в карте еще нет или инкремент если есть.
 
+        for (int i = 0; i < s.length(); i++) {
+            if (count.get(s.charAt(i)) != null) {
+                count.put(s.charAt(i), count.get(s.charAt(i)) + 1);
+            } else {
+                count.put(s.charAt(i), 1);
+            }
+        }
+        System.out.println(count);
         //2. перенесем все символы в приоритетную очередь в виде листьев
         PriorityQueue<Node> priorityQueue = new PriorityQueue<>();
-
+        for (Character key : count.keySet()) {
+            priorityQueue.add(new LeafNode(count.get(key), key));
+        }
         //3. вынимая по два узла из очереди (для сборки родителя)
         //и возвращая этого родителя обратно в очередь
         //построим дерево кодирования Хаффмана.
         //У родителя частоты детей складываются.
+        Node left, right;
+        while (priorityQueue.size() != 1) {
+            int y;
+            left = priorityQueue.remove();
+            right = priorityQueue.remove();
+            priorityQueue.add(new InternalNode(left, right));
+
+        }
+
 
         //4. последний из родителей будет корнем этого дерева
         //это будет последний и единственный элемент оставшийся в очереди priorityQueue.
         StringBuilder sb = new StringBuilder();
         //.....
 
+        priorityQueue.peek().fillCodes(sb.toString());
+        for (char symbol : s.toCharArray())
+            sb.append(codes.get(symbol));
         return sb.toString();
+
         //01001100100111
         //01001100100111
     }

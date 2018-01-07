@@ -1,7 +1,9 @@
 package by.it.group573602.bulka.lesson02;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Arrays;
 /*
 даны интервальные события events
 реализуйте метод calcStartTimes, так, чтобы число принятых к выполнению
@@ -28,6 +30,13 @@ public class B_Sheduler {
         }
     }
 
+    class Ecomporator implements Comparator<Event> {
+        @Override
+        public int compare(Event eve,Event eve1){
+            return  Integer.compare(eve.stop,eve1.stop);
+        }
+    }
+
     public static void main(String[] args) {
         B_Sheduler instance = new B_Sheduler();
         Event[] events = {  new Event(0, 3),  new Event(0, 1), new Event(1, 2), new Event(3, 5),
@@ -49,12 +58,20 @@ public class B_Sheduler {
         //начало и конец событий могут совпадать.
         List<Event> result;
         result = new ArrayList<>();
-        //ваше решение.
-
-
-
-
-
+        //решение.
+        Arrays.sort(events, new Ecomporator());
+        int i=0,k;
+        while(events[i].start<from)
+            i=++i;
+        while (i < events.length - 1) {
+            result.add(events[i]);
+            k=events[i].stop;
+            while(events[i].start < k) {
+                i =i+1;
+                if (events[i].stop == to)
+                    return result;
+            }
+        }
 
         return result;                        //вернем итог
     }
