@@ -72,7 +72,6 @@ public class C_EditDist {
                     dist[i][j] = Math.min(ins, Math.min(del, sub));
                 }
             }
-
         int i = arr.length;
         int j = arr2.length;
         while (i>0 || j>0){

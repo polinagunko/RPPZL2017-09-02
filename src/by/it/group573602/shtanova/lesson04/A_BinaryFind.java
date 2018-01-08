@@ -39,7 +39,6 @@ public class A_BinaryFind {
         for (int i = 1; i <= n; i++) {
             a[i-1] = scanner.nextInt();
         }
-
         //размер массива индексов
         int k = scanner.nextInt();
         int[] result=new int[k];

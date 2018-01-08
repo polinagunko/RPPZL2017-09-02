@@ -45,9 +45,9 @@ import java.util.Scanner;
 public class B_Huffman {
 
     String decode(File file) throws FileNotFoundException {
-        StringBuilder result=new StringBuilder();
+        StringBuilder result = new StringBuilder();
         //прочитаем строку для кодирования из тестового файла
-        Scanner scanner = new Scanner(file).useDelimiter("[\\W]");
+        Scanner scanner = new Scanner(file);
         Integer count = scanner.nextInt();
         Integer length = scanner.nextInt();
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! НАЧАЛО ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
@@ -61,19 +61,15 @@ public class B_Huffman {
             codesMap.put(key, value);
         }
         scanner.next();
-        String encoded = scanner.next();
-        StringBuilder letterCode = new StringBuilder();
+        String line = scanner.next();
+        StringBuilder code = new StringBuilder();
         for (int i = 0; i < length; i++) {
-            letterCode.append(encoded.charAt(i));
-            if (encoded.charAt(i) == '0' || letterCode.length() == 3) {
-                result.append(codesMap.get(letterCode.toString()));
-                letterCode.setLength(0);
+            code.append(line.charAt(i));
+            if (line.charAt(i) == '0' || code.length() == 3) {
+                result.append(codesMap.get(code.toString()));
+                code.setLength(0);
             }
         }
-
-
-
-
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! КОНЕЦ ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
         return result.toString(); //01001100100111
     }

@@ -36,7 +36,6 @@ public class B_MergeSort {
             System.out.println(a[i]);
 
         }
-
         // тут ваше решение (реализуйте сортировку слиянием)
         // https://ru.wikipedia.org/wiki/Сортировка_слиянием
 
@@ -88,6 +87,4 @@ public class B_MergeSort {
             System.out.print(index + " ");
         }
     }
-
-
 }

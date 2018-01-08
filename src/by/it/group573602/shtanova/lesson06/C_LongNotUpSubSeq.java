@@ -62,7 +62,6 @@ public class C_LongNotUpSubSeq {
                     prev[i] = j;
                 }
         }
-
         int ans = 0;
         for (int i = 0; i < length; i++) {
             ans = Math.max(ans, buff[i]);

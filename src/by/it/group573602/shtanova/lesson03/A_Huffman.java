@@ -120,21 +120,21 @@ public class A_Huffman {
         //если они вам мешают их можно удалить
 
         Map<Character, Integer> count = new HashMap<>();
-       for (int i = 0; i<s.length(); i++)     //1. переберем все символы по очереди и рассчитаем их частоту в Map count
+        for (int i = 0; i<s.length(); i++)     //1. переберем все символы по очереди и рассчитаем их частоту в Map count
             if (count.putIfAbsent(s.charAt(i),1) != null)//для каждого символа добавим 1 если его в карте еще нет или инкремент если есть.
                 count.put(s.charAt(i), count.get(s.charAt(i)) + 1);
         //2. перенесем все символы в приоритетную очередь в виде листьев
-        PriorityQueue<Node> priorityQueue = new PriorityQueue<>();
+        PriorityQueue<by.it.group573602.shtanova.lesson03.A_Huffman.Node> priorityQueue = new PriorityQueue<>();
         for (Map.Entry<Character, Integer> entry : count.entrySet()) {
-            priorityQueue.add(new LeafNode(entry.getValue(), entry.getKey()));
+            priorityQueue.add(new by.it.group573602.shtanova.lesson03.A_Huffman.LeafNode(entry.getValue(), entry.getKey()));
         }
         //3. вынимая по два узла из очереди (для сборки родителя)
         //и возвращая этого родителя обратно в очередь
-        Node first, second;
+        by.it.group573602.shtanova.lesson03.A_Huffman.Node first, second;
         while (true) {
             first = priorityQueue.poll();
             second = priorityQueue.poll();
-            priorityQueue.add(new InternalNode(first, second));
+            priorityQueue.add(new by.it.group573602.shtanova.lesson03.A_Huffman.InternalNode(first, second));
             if(priorityQueue.size() == 1) {
                 break;
             }
@@ -145,12 +145,12 @@ public class A_Huffman {
         //4. последний из родителей будет корнем этого дерева
         //это будет последний и единственный элемент оставшийся в очереди priorityQueue.
         StringBuilder sb = new StringBuilder();
-
         priorityQueue.peek().fillCodes(sb.toString());
-         for (char letter : s.toCharArray()) {
-             sb.append(codes.get(letter));
-         }
+        for (char letter : s.toCharArray()) {
+            sb.append(codes.get(letter));
+        }
         return sb.toString();
+
         //01001100100111
         //01001100100111
     }

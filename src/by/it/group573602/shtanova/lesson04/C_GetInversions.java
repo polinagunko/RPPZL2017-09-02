@@ -55,11 +55,6 @@ public class C_GetInversions {
         result= count;
 
 
-
-
-
-
-
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }

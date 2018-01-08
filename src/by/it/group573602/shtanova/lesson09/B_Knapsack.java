@@ -59,7 +59,6 @@ public class B_Knapsack {
         return result;
     }
 
-
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
         InputStream stream = new FileInputStream(root + "by/it/a_khmelev/lesson09/dataB.txt");

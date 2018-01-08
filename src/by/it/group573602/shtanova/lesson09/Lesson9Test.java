@@ -34,5 +34,4 @@ public class Lesson9Test {
         int res=instance.getMaxSum(stream);
         assertEquals("C failed", res, 3);
     }
-
 }

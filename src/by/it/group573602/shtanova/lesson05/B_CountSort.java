@@ -32,7 +32,6 @@ public class B_CountSort {
             points[i]=scanner.nextInt();
             if (min > points[i]) min = points[i];
             if (max < points[i]) max = points[i];
-
         }
         //тут реализуйте логику задачи с применением сортировки подсчетом
 

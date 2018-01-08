@@ -43,7 +43,6 @@ public class A_LIS {
         for (int i = 0; i < length; i++) {
             massive[i] = scanner.nextInt();
         }
-
         //тут реализуйте логику задачи методами динамического программирования (!!!)
 
         int[] buff = new int[length];

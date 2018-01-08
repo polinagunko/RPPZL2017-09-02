@@ -60,7 +60,6 @@ public class B_LongDivComSubSeq {
         return ans;
     }
 
-
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
         InputStream stream = new FileInputStream(root + "by/it/group573602/shtanova/lesson06/dataB.txt");

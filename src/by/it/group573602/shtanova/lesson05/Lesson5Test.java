@@ -18,7 +18,7 @@ public class Lesson5Test {
         boolean ok=Arrays.equals(result,new int[]{1,0,0});
         assertTrue("A failed", ok);
     }
-
+//1
 
     @Test
     public void B() throws Exception {
