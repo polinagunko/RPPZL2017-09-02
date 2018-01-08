@@ -70,6 +70,5 @@ public class C_Stairs {
         int res = instance.getMaxSum(stream);
         System.out.println(res);
     }
-
 }
 

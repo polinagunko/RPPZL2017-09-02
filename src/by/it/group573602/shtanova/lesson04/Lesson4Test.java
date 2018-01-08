@@ -24,7 +24,6 @@ public class Lesson4Test {
         boolean ok=sb.toString().trim().equals("3 1 -1 1 -1");
         assertTrue("A failed", ok);
     }
-//1
 
     @Test
     public void B() throws Exception {

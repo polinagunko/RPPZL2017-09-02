@@ -68,4 +68,3 @@ public class B_Knapsack {
     }
 
 }
-

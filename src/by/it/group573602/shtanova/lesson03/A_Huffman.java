@@ -150,7 +150,6 @@ public class A_Huffman {
             sb.append(codes.get(letter));
         }
         return sb.toString();
-
         //01001100100111
         //01001100100111
     }

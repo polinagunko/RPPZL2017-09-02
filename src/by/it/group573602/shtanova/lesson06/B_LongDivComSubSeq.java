@@ -50,7 +50,6 @@ public class B_LongDivComSubSeq {
                 if (massive[i] % massive[j] == 0 && buff[j] + 1 > buff[i])
                     buff[i]++;
         }
-
         int ans = 0;
         for (int i = 0; i < length; i++) {
             ans = Math.max(ans, buff[i]);

@@ -39,7 +39,6 @@ public class B_CountSort {
         for (int i = 0; i < n; i++) {
             buff[-min + points[i]]++;
         }
-
         int i = 0;
         for (int j = 0; j < buff.length; j++) {
             for (int k = 0; k < buff[j]; k++) {

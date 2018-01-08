@@ -66,7 +66,6 @@ public class C_LongNotUpSubSeq {
         for (int i = 0; i < length; i++) {
             ans = Math.max(ans, buff[i]);
         }
-
         int[] indexans = new int[ans];
 
         int ans_index = 0;

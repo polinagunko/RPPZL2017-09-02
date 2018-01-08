@@ -54,7 +54,6 @@ public class C_GetInversions {
         M_sort(a);
         result= count;
 
-
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }

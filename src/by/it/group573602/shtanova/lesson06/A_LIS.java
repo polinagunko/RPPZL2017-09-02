@@ -53,7 +53,6 @@ public class A_LIS {
                     buff[i]++;
                 }
         }
-
         int ans = 0;
         for (int i = 0; i < length; i++) {
             ans = Math.max(ans, buff[i]);
