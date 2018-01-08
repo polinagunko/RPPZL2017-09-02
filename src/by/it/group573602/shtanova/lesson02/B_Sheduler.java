@@ -1,7 +1,11 @@
 package by.it.group573602.shtanova.lesson02;
 
+import com.sun.xml.internal.stream.Entity;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Comparator;
 
 public class B_Sheduler {
     //событие у аудитории(два поля: начало и конец)
@@ -17,6 +21,13 @@ public class B_Sheduler {
         @Override
         public String toString() {
             return "("+ start +":" + stop + ")";
+        }
+    }
+
+    class ComparatorEv implements Comparator<Event> {
+        @Override
+        public int compare(Event ev_1, Event ev_2){
+            return Integer.compare(ev_1.stop, ev_2.stop);
         }
     }
 
@@ -42,7 +53,18 @@ public class B_Sheduler {
         List<Event> result;
         result = new ArrayList<>();
         //ваше решение.
-
+        Arrays.sort(events, new ComparatorEv());
+        int i = 0, k;
+        while (i < events.length - 1) {
+            result.add(events[i]);
+            k = events[i].stop;
+            while (events[i].start < k) {
+                i = i + 1;
+                if(events[i].stop == to) {
+                    return result;
+                }
+            }
+        }
 
 
 
